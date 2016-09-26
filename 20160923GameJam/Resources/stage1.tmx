@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="20" height="20" tilewidth="32" tileheight="32" nextobjectid="58">
+ <tileset firstgid="1" name="preview" tilewidth="32" tileheight="32" tilecount="441" columns="21">
+  <image source="TileMap画像/Platformer Art Complete Pack/Base pack/preview.png" width="698" height="675"/>
+ </tileset>
+ <tileset firstgid="442" name="355ca9d1f58de7f0535a18e2f0f47e83" tilewidth="32" tileheight="32" tilecount="748" columns="34">
+  <image source="画像/355ca9d1f58de7f0535a18e2f0f47e83.png" width="1102" height="713"/>
+ </tileset>
+ <tileset firstgid="1190" name="forest_pack" tilewidth="32" tileheight="32" tilecount="1462" columns="43">
+  <image source="forest_pack.png" width="1392" height="1089"/>
+ </tileset>
+ <layer name="タイル・レイヤー1" width="20" height="20">
+  <data encoding="base64" compression="zlib">
+   eJzd0klOAkEYhuFO0DSsbFFB7iAeAJzxJsgMcgdgjeJ8CWUtAk6XUNbgAOgZeDsWSdm2+i80MVbyJH8qX1d1Kl/caxhbSCCJFNLIIIsc8iggLshWsYNd1LCHfRzgEEc4xokwe44GLtBEC21c4grXuMGtMNtFDw94xBOe0ccAQ7zgVZid8hmGhWn4MYNZzCGAIOYR8smyEUSxhGWsYBVrWMcGYtgUZhNIIoU0MsgihzwK2EZRmP3r/yfp6G/22VL0rL3+c5/t9VWf7fVdX8rme5VPlDQ1860DlnpjvS9n5kd1F6fKOFPW7tHnO4ew4ty/d1HX7hjP+jcL6qxFh7B2Zsdxvtu+ZPbwVhOY9P7MPAKX6MzV
+  </data>
+ </layer>
+ <objectgroup name="オブジェクト・レイヤー 1">
+  <object id="52" name="point1" type="mask" x="46" y="465"/>
+  <object id="53" name="point2" type="mask" x="558" y="336"/>
+  <object id="56" name="point3" type="enemy" x="205" y="498">
+   <ellipse/>
+  </object>
+  <object id="57" name="point4" type="enemy" x="429" y="433">
+   <ellipse/>
+  </object>
+ </objectgroup>
+</map>

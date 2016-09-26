@@ -42,7 +42,9 @@
     <ClCompile Include="..\Classes\MaskPower.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\MaskOfBullet.cpp" />
+    <ClCompile Include="..\Classes\MaskOfBullet.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
