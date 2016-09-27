@@ -9,6 +9,8 @@ m_menuLabel(),
 m_startButton(),
 m_optionsButton(),
 m_quitButton(),
+m_yesButton(),
+m_noButton(),
 m_touchPosition(0.0f, 0.0f),
 m_isTouching(false)
 {
@@ -27,7 +29,6 @@ Scene* MenuScreen::createScene()
     return scene;
 }
 
-// on "init" you need to initialize your instance
 bool MenuScreen::init()
 {
     if (!Layer::init())
@@ -67,13 +68,22 @@ void MenuScreen::showOptions(Ref* sender, ui::Widget::TouchEventType eventType)
 	CCLOG("OPTIONS button touched");
 }
 
-void MenuScreen::quitGame(Ref* sender, ui::Widget::TouchEventType eventType)
+void MenuScreen::openExitMenu(Ref* sender, ui::Widget::TouchEventType eventType)
 {
 	if (eventType != ui::Widget::TouchEventType::ENDED)
 		return;
+	m_yesButton->setVisible(true);
+	m_yesButton->setTouchEnabled(true);
+	m_noButton->setVisible(true);
+	m_noButton->setTouchEnabled(true);
+}
 
-	CCLOG("QUIT button touched");
-	menuCloseCallback(sender);
+void MenuScreen::closeExitMenu()
+{
+	m_yesButton->setVisible(false);
+	m_yesButton->setTouchEnabled(false);
+	m_noButton->setVisible(false);
+	m_noButton->setTouchEnabled(false);
 }
 
 
@@ -111,51 +121,55 @@ void MenuScreen::createMenuButtons()
     m_quitButton->setTitleFontSize(22);
     m_quitButton->setTitleColor(Color3B::WHITE);
     m_quitButton->setTouchEnabled(true);
-	m_quitButton->addTouchEventListener(CC_CALLBACK_2(MenuScreen::quitGame, this));
+	m_quitButton->addTouchEventListener(CC_CALLBACK_2(MenuScreen::openExitMenu, this));
+
+	// EXIT MENU BUTTONS
+	// YES
+	m_yesButton = ui::Button::create();
+	m_yesButton->loadTextures("images/MenuButtonDefault.png", "images/MenuButtonHighlighted.png");
+	m_yesButton->setPosition(Point(this->getBoundingBox().getMidX(),
+								   this->getBoundingBox().getMaxY() * 0.6));
+	m_yesButton->setTitleText("YES");
+	m_yesButton->setTitleFontSize(22);
+	m_yesButton->setTitleColor(Color3B::WHITE);
+	m_yesButton->setTouchEnabled(false);
+	m_yesButton->setVisible(false);
+	m_yesButton->addTouchEventListener(CC_CALLBACK_2(MenuScreen::menuCloseCallback, this));
+
+	// NO
+	m_noButton = ui::Button::create();
+	m_noButton->loadTextures("images/MenuButtonDefault.png", "images/MenuButtonHighlighted.png");
+	m_noButton->setPosition(Point(this->getBoundingBox().getMidX(),
+								  this->getBoundingBox().getMaxY() * 0.4));
+	m_noButton->setTitleText("NO");
+	m_noButton->setTitleFontSize(22);
+	m_noButton->setTitleColor(Color3B::WHITE);
+	m_noButton->setTouchEnabled(false);
+	m_noButton->setVisible(false);
+	//m_noButton->addTouchEventListener(CC_CALLBACK_2(MenuScreen::closeExitMenu, this));
+	m_noButton->addTouchEventListener([this](Ref* pSender, ui::Widget::TouchEventType eventType)
+	{
+		if (eventType != ui::Widget::TouchEventType::ENDED)
+			return;
+		// Close the quit game popup
+		//MenuScreen::closeExitMenu();
+		closeExitMenu();
+	});
 
     this->addChild(m_startButton, 0);
     this->addChild(m_optionsButton, 0);
     this->addChild(m_quitButton, 0);
+	this->addChild(m_yesButton, 0);
+	this->addChild(m_noButton, 0);
 }
 
-void MenuScreen::menuCloseCallback(Ref* pSender)
+void MenuScreen::menuCloseCallback(Ref* pSender, ui::Widget::TouchEventType eventType)
 {
+	if (eventType != ui::Widget::TouchEventType::ENDED)
+		return;
     Director::getInstance()->end();
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
     exit(0);
 #endif
 }
-
-//bool MenuScreen::touchBeganCallback(Touch* touch, Event* event)
-//{
-//	m_isTouching = true;
-//	m_touchPosition = touch->getLocation();
-//	CCLOG("Touch position X: %f", m_touchPosition.x);
-//	CCLOG("Touch position Y: %f", m_touchPosition.y);
-//	return true;
-//}
-//
-//void MenuScreen::touchMovedCallback(Touch* touch, Event* event)
-//{
-//
-//}
-//
-//void MenuScreen::touchEndedCallback(Touch* touch, Event* event)
-//{
-//	m_isTouching = false;
-//	//auto target = static_cast<ui::Button*>(event->getCurrentTarget());
-//
-//	//Get the position of the current point relative to the button
-//	//Point locationInNode = target->convertToNodeSpace(touch->getLocation());
-//	//Rect rect = Rect(0, 0, target->getContentSize().width, target->getContentSize().height);
-//	auto point = event->getCurrentTarget()->getBoundingBox();
-//	// TODO: buttonien touchit ei koskaan tule tanne
-//	if (m_startButton == event->getCurrentTarget() && point.containsPoint(touch->getLocation()))
-//	{
-//		// Start test
-//		CCLOG("Test scene started");
-//		auto scene = GameScene::createScene();
-//		Director::getInstance()->replaceScene(scene);
-//	}
-//}

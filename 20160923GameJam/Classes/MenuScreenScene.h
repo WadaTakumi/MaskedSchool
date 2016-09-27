@@ -14,12 +14,13 @@ public:
 	virtual bool init();
 	void startGame(cocos2d::Ref* sender, cocos2d::ui::Widget::TouchEventType eventType);
 	void showOptions(cocos2d::Ref* sender, cocos2d::ui::Widget::TouchEventType eventType);
-	void quitGame(cocos2d::Ref* sender, cocos2d::ui::Widget::TouchEventType eventType);
+	void openExitMenu(cocos2d::Ref* sender, cocos2d::ui::Widget::TouchEventType eventType);
+	void closeExitMenu();
 
     void createMenuButtons();
 
     // a selector callback
-    void menuCloseCallback(cocos2d::Ref* pSender);
+	void menuCloseCallback(cocos2d::Ref* pSender, cocos2d::ui::Widget::TouchEventType eventType);
 
 
     // implement the "static create()" method manually
@@ -31,6 +32,8 @@ private:
     cocos2d::ui::Button* m_startButton;
     cocos2d::ui::Button* m_optionsButton;
     cocos2d::ui::Button* m_quitButton;
+	cocos2d::ui::Button* m_yesButton;
+	cocos2d::ui::Button* m_noButton;
 
 	cocos2d::Point m_touchPosition;
 
