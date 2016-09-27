@@ -20,8 +20,6 @@ Player::Player()
 
 Player::~Player()
 {
-	b2World* pWorld = m_pbPlayer->GetWorld();
-	pWorld->DestroyBody(m_pbPlayer);
 }
 
 bool Player::init(b2World* world)
@@ -31,13 +29,13 @@ bool Player::init(b2World* world)
 	//scheduleUpdate();
 
 	// リスナー ---------------------------------------------------
-	auto listener = EventListenerTouchOneByOne::create();
-	listener->onTouchBegan = CC_CALLBACK_2(Player::onTouchBegan, this);
+	/*auto listener = EventListenerTouchOneByOne::create();
+	listener->onTouchBegan = CC_CALLBACK_2(Player::onTouchBegan, this);*/
 	//listener->onTouchesEnded = CC_CALLBACK_2(PlayerA::onTouchesEnded, this);
 	//listener->onTouchesMoved = CC_CALLBACK_2(PlayerA::onTouchesMoved, this);
 	// -----------------------------------------------------------
 	// イベントリスナーを作成---------------------------------------
-	this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
+	//this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
 	// -----------------------------------------------------------
 	
 	m_pWorld = world;
@@ -63,12 +61,12 @@ bool Player::init(b2World* world)
 	m_pbPlayer->CreateFixture(&playerFixtureDef);
 
 	// カウンター
-	m_touchCount = 0;
+	//m_touchCount = 0;
 
 	// フラグ
 	//m_jumpFlag = false;
-	m_getMaskflag = false;
-	m_putOutMaskPowerButtonFlag = false;
+	//m_getMaskflag = false;
+	//m_putOutMaskPowerButtonFlag = false;
 
 
 
@@ -103,22 +101,22 @@ bool Player::init(b2World* world)
 	return true;
 }
 
-void Player::update(float dt)
-{
-	m_time++;
-	if (m_time == 60)
-	{
-		m_timeCount++;
-		m_time = 0;
-	}
-	if (m_timeCount == 1)
-	{
-		log("time %d",m_timeCount);
-	}
-
-	
-
-	//if (m_main -> getGetMaskflag() != false)
+//void Player::update(float dt)
+//{
+//	//m_time++;
+	//if (m_time == 60)
+	//{
+	//	m_timeCount++;
+	//	m_time = 0;
+	//}
+	//if (m_timeCount == 1)
+	//{
+	//	log("time %d",m_timeCount);
+	//}
+//
+//	
+//
+//	//if (m_main -> getGetMaskflag() != false)
 	//{
 	//	m_pIconOfNotGetMaskPower->setVisible(false);
 	//	
@@ -127,33 +125,8 @@ void Player::update(float dt)
 		//	putOutToMaskPowerButton();
 	//	}
 	//}
-}
+//}
 
-bool Player::onTouchBegan(cocos2d::Touch * touch,
-	cocos2d::Event * unused_event)
-{
-	Vec2 touchPoint = touch->getLocation();
-	m_p.x = touchPoint.x / PTM_RATIO;
-	m_p.y = touchPoint.y / PTM_RATIO;
-
-
-	if (touchPoint.x < 640 / 2)	// Y軸
-	{
-		b2Vec2 impulse(0, 5.f);
-		b2Vec2 point = m_pbPlayer->GetWorldCenter();
-		m_pbPlayer->ApplyLinearImpulse(impulse, point, true);
-	}
-	
-	//if (touchPoint.x > (640/2) )	// Y軸
-	//{
-	//	//m_pBullet = MaskPower::create();
-	//	//m_pBullet->setPosition(m_pPlayer->getPosition());
-	//	//this->addChild(m_pBullet);
-	//}
-
-
-	return true;
-}
 
 //void Player::jump(cocos2d::Ref * pSende)
 //{
@@ -182,11 +155,18 @@ bool Player::onTouchBegan(cocos2d::Touch * touch,
 //	this->addChild(jumpButtonMenu, 1);
 //}
 
-void Player::useMaskPower(cocos2d::Ref * pSende)
+//void Player::useMaskPower(cocos2d::Ref * pSende)
+//{
+//	m_pBullet = MaskPower::create();
+//	m_pBullet -> setPosition(m_pPlayer->getPosition());
+//	this->addChild(m_pBullet);
+//}
+
+void Player::jump()
 {
-	m_pBullet = MaskPower::create();
-	m_pBullet -> setPosition(m_pPlayer->getPosition());
-	this->addChild(m_pBullet);
+	b2Vec2 impulse(0, 5.f);
+	b2Vec2 point = m_pbPlayer->GetWorldCenter();
+	m_pbPlayer->ApplyLinearImpulse(impulse, point, true);
 }
 
 Player * Player::create(b2World* world)

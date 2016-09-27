@@ -18,12 +18,13 @@ private:
 
 	b2World* m_pWorld;
 	b2Draw* m_pDraw;
+	b2Vec2 m_position;
 	BackGround* m_pBackGround;
 	BackGround2* m_pBackGround2;
 	BackGround3* m_pBackGround3;
 	Player* m_pPlayer;
 	Enemy* m_pEnemy;
-	MaskOfBullet* m_pMaskOfBullet;
+	//MaskOfBullet* m_pMaskOfBullet;
 
 	int pPrintTimeCount;
 	float m_time;
@@ -45,8 +46,9 @@ public:
 		const cocos2d::Mat4 &transform,
 		uint32_t flags);
 
-	void collisionDetection();
-	bool getGetMaskflag();
+
+	bool onTouchBegan(cocos2d::Touch * touch,
+		cocos2d::Event * unused_event);
 
 	// implement the "static create()" method manually
 	CREATE_FUNC(MainScene);

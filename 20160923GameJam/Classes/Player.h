@@ -20,8 +20,8 @@ private:
 	b2Vec2 m_p;
 
 	cocos2d::Sprite* m_pPlayer;
-	cocos2d::Sprite* m_pIconOfNotGetMaskPower;
-	MaskPower* m_pBullet;
+	//cocos2d::Sprite* m_pIconOfNotGetMaskPower;
+	//MaskPower* m_pBullet;
 	//MainScene* m_main;
 	
 	//cocos2d::CCParticleSystemQuad* m_pParticletouch;
@@ -32,8 +32,8 @@ private:
 	int m_timeCount;
 	int m_randNum;
 	//bool m_jumpFlag;
-	bool m_getMaskflag;
-	bool m_putOutMaskPowerButtonFlag;
+	//bool m_getMaskflag;
+	//bool m_putOutMaskPowerButtonFlag;
 
 public:
 
@@ -41,7 +41,7 @@ public:
 	Player::Player();
 	Player::~Player();
 	virtual bool init(b2World* world);
-	void update(float dt)override;
+	//void update(float dt)override;
 
 	bool onTouchBegan(
 		cocos2d::Touch* touch,
@@ -50,6 +50,8 @@ public:
 	void jump(cocos2d::Ref * pSende);
 	void putOutToMaskPowerButton();
 	void useMaskPower(cocos2d::Ref * pSende);
+
+	void jump();
 
 	static Player* create(b2World* world);
 };
