@@ -4,10 +4,17 @@
 #include "BackGround.h"
 #include "ui/CocosGUI.h"
 #include "SimpleAudioEngine.h"		// サウンド
+#include "Box2D/Box2D.h"
+#include "DebugDrawNode.h"
+#include "QueryCallback.h"
+
 
 USING_NS_CC;
 
 using namespace CocosDenshion;		// サウンド
+
+const int PTM_RATIO = 32;
+
 
 Scene* MainScene::createScene()
 {
@@ -22,6 +29,16 @@ Scene* MainScene::createScene()
 
 	// return the scene
 	return scene;
+}
+
+MainScene::MainScene()
+{
+}
+
+MainScene::~MainScene()
+{
+	delete m_pDraw;
+	delete m_pWorld;
 }
 
 // on "init" you need to initialize your instance
@@ -46,16 +63,18 @@ bool MainScene::init()
 	//bg->setScale(6);
 	//this->addChild(bg,-2);
 	
-	m_pBackGround3 = BackGround3::create();
-	this->addChild(m_pBackGround3, -3);
+	//m_pBackGround3 = BackGround3::create();
+	//this->addChild(m_pBackGround3, -3);
+	//
+	//m_pBackGround2 = BackGround2::create();
+	//this->addChild(m_pBackGround2,-2);
+	//
+	//m_pBackGround = BackGround::create();
+	//this->addChild(m_pBackGround,-1);
 
-	m_pBackGround2 = BackGround2::create();
-	this->addChild(m_pBackGround2,-2);
+	initPhysics();
 
-	m_pBackGround = BackGround::create();
-	this->addChild(m_pBackGround,-1);
-
-	m_pPlayer = Player::create();
+	m_pPlayer = Player::create(m_pWorld);
 	this->addChild(m_pPlayer);
 
 	m_pEnemy = Enemy::create();
@@ -81,9 +100,54 @@ void MainScene::update(float dt)
 		log("time %d", m_timeCount);
 	}
 
+
+	// 物理ワールドの更新
+	m_pWorld->Step(1.0f / 60.0f, 8, 3);
+
+	//---------------------------------------------------------------
+	// 物理ワールド内全てのボディについて処理
+	for (b2Body* body = m_pWorld->GetBodyList();
+	body != nullptr;
+		body = body->GetNext())
+	{
+		// UserDataにしまっておいたSpriteを取得
+		Sprite* spr = (Sprite*)body->GetUserData();
+		// あらかじめSpriteがしまってある場合のみ
+		if (spr != nullptr)
+		{
+			// 物理ワールド中の剛体の座標を取得して、
+			// 同じ位置にSpriteを移動
+			b2Vec2 pos = body->GetPosition();
+			spr->setPosition(pos.x*PTM_RATIO, pos.y*PTM_RATIO);
+		}
+	}
+
+
 	collisionDetection();
 	
 	getGetMaskflag();
+}
+
+void MainScene::initPhysics()
+{
+	//物理ワールド
+	b2Vec2 gravity;
+	gravity.Set(0.0f, 0.0f);
+	m_pWorld = new b2World(gravity);
+
+	// 表示用のインスタンスを作成
+	m_pDraw = new GLESDebugDraw(PTM_RATIO);
+	// 全種類表示
+	uint32 flags = 0xffffffff;
+	m_pDraw->SetFlags(flags);
+	// 表示インスタンスをワールドにセット
+	m_pWorld->SetDebugDraw(m_pDraw);
+}
+
+void MainScene::draw(cocos2d::Renderer * renderer, const cocos2d::Mat4 & transform, uint32_t flags)
+{
+	// 物理ワールドをデバッグ表示
+	m_pWorld->DrawDebugData();
 }
 
 void MainScene::collisionDetection()
