@@ -80,8 +80,9 @@ bool MainScene::init()
 	m_pEnemy = Enemy::create();
 	this->addChild(m_pEnemy);
 
-	m_pMaskOfBullet = MaskOfBullet::create();
-	this->addChild(m_pMaskOfBullet);
+	//一時的なコメントアウト 9/27
+	//m_pMaskOfBullet = MaskOfBullet::create();
+	//this->addChild(m_pMaskOfBullet);
 
 	return true;
 }
@@ -152,15 +153,15 @@ void MainScene::draw(cocos2d::Renderer * renderer, const cocos2d::Mat4 & transfo
 
 void MainScene::collisionDetection()
 {
-	Rect rect_player = m_pPlayer->getBoundingBox();
-	Rect rect_mask = m_pMaskOfBullet->getBoundingBox();
-	bool hit= rect_player.intersectsRect(rect_mask);
+	//Rect rect_player = m_pPlayer->getBoundingBox();
+	////Rect rect_mask = m_pMaskOfBullet->getBoundingBox();
+	//bool hit= rect_player.intersectsRect(rect_mask);
 
-	if (hit)
-	{
-		//m_pMaskOfBullet->setVisible(false);
-		m_getMaskflag = true;
-	}
+	//if (hit)
+	//{
+	//	//m_pMaskOfBullet->setVisible(false);
+	//	m_getMaskflag = true;
+	//}
 }
 
 bool MainScene::getGetMaskflag()
