@@ -1,30 +1,48 @@
+//--インクルード----------------------------------------------------//
 #include "MaskOfBullet.h"
 #include "ui/CocosGUI.h"
+#include "BaseMask.h"
 
 USING_NS_CC;
 
+//**************************************************************************************
+//  init
+//**************************************************************************************
+//--------------------------------------------------------------------------------------
+/*
+【機能】
+初期化
+【引数】
+無し
+【戻値】
+無し
+*/
 bool MaskOfBullet::init()
 {
-	//Size visibleSize = Director::getInstance()->getVisibleSize();
-
 
 	m_mask = Sprite::create("mask1.png");
 	m_mask->setPosition(Vec2((960 / 2) + 350, (640 / 2) + 200));
 	this->addChild(m_mask);
 
 
-	// アクション（スクロール）
-	auto actionMoveBym_bgLeft = MoveBy::create(10.0, Vec2(-1500, 0));
-	m_mask->runAction(actionMoveBym_bgLeft);
-
-
-	//scheduleUpdate();
-
-
 	return true;
 }
 
-//void MaskOfBullet::update(float dt)
-//{
-//
-//}
+//**************************************************************************************
+//  MaskAction
+//**************************************************************************************
+//--------------------------------------------------------------------------------------
+/*
+【機能】
+マスクの能力を使う(弾を打つ)
+【引数】
+無し
+【戻値】
+無し
+*/
+void MaskOfBullet::MaskAction()
+{
+	// アクション（スクロール）
+	auto actionMoveBym_bgLeft = MoveBy::create(10.0, Vec2(-1500, 0));
+	m_mask->runAction(actionMoveBym_bgLeft);
+}

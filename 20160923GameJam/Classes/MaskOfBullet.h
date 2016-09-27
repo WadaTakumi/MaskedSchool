@@ -1,22 +1,27 @@
 #ifndef __MAASK_OF_BULLET_H__
 #define __MAASK_OF_BULLET_H__
 
+//--インクルード----------------------------------------------------//
 #include "cocos2d.h"
+#include "BaseMask.h"
 
-class MaskOfBullet : public cocos2d::Layer
+//**************************************************************************************
+//  MaskOfBulletクラス
+//**************************************************************************************
+/*
+【機能】
+玉を打つマスクのクラス
+*/
+
+class MaskOfBullet : public BaseMask
 {
-private:
-
-	cocos2d::Sprite* m_mask;
-
 public:
-
-	//static cocos2d::Scene* createScene();
-
+	//初期化
 	virtual bool init();
-	//void update(float dt)override;
 
-	CREATE_FUNC(MaskOfBullet);
+	//マスクの能力を使う
+	virtual void MaskAction();
+
 };
 
-#endif // __HELLOWORLD_SCENE_H__
+#endif 
