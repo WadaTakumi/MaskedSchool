@@ -149,6 +149,9 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\BackGround2.cpp" />
     <ClCompile Include="..\Classes\BackGround3.cpp" />
     <ClCompile Include="..\Classes\BaseMask.cpp" />
+    <ClCompile Include="..\Classes\DebugDrawNode.cpp" />
+    <ClCompile Include="..\Classes\EventListenerGesture.cpp" />
+    <ClCompile Include="..\Classes\GLES-Render.cpp" />
     <ClCompile Include="..\Classes\HelloWorldScene.cpp" />
     <ClCompile Include="..\Classes\MainScene.cpp" />
     <ClCompile Include="..\Classes\MaskOfBullet.cpp" />
@@ -156,6 +159,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\MenuScreenScene.cpp" />
     <ClCompile Include="..\Classes\Player.cpp" />
     <ClCompile Include="..\Classes\Enemy.cpp" />
+    <ClCompile Include="..\Classes\QueryCallback.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -164,6 +168,9 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\BackGround2.h" />
     <ClInclude Include="..\Classes\BackGround3.h" />
     <ClInclude Include="..\Classes\BaseMask.h" />
+    <ClInclude Include="..\Classes\DebugDrawNode.h" />
+    <ClInclude Include="..\Classes\EventListenerGesture.h" />
+    <ClInclude Include="..\Classes\GLES-Render.h" />
     <ClInclude Include="..\Classes\HelloWorldScene.h" />
     <ClInclude Include="..\Classes\MainScene.h" />
     <ClInclude Include="..\Classes\MaskOfBullet.h" />
@@ -171,6 +178,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\Enemy.h" />
     <ClInclude Include="..\Classes\MenuScreenScene.h" />
     <ClInclude Include="..\Classes\Player.h" />
+    <ClInclude Include="..\Classes\QueryCallback.h" />
     <ClInclude Include="main.h" />
   </ItemGroup>
   <ItemGroup>

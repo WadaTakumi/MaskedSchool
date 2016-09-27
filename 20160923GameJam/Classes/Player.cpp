@@ -144,7 +144,7 @@ bool Player::onTouchBegan(cocos2d::Touch * touch,
 		m_pbPlayer->ApplyLinearImpulse(impulse, point, true);
 	}
 	
-	//if (touchPoint.x < )	// YŽ²
+	//if (touchPoint.x > (640/2) )	// YŽ²
 	//{
 	//	//m_pBullet = MaskPower::create();
 	//	//m_pBullet->setPosition(m_pPlayer->getPosition());
