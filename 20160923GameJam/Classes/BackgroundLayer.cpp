@@ -51,7 +51,7 @@ bool BackgroundLayer::init()
 	for (int i = 0; i < 5; i++)
 	{
 		// マップの表示
-		map = TMXTiledMap::create("stage2.tmx");
+		map = TMXTiledMap::create("stage1.tmx");
 		map->setAnchorPoint(Vec2::ZERO);
 		map->setPosition(Vec2(0, 0));
 		_groupe[i]->addChild(map);
