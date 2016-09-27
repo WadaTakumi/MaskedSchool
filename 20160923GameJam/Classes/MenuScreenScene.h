@@ -28,6 +28,7 @@ public:
 
 private:
     cocos2d::Label* m_menuLabel;
+	cocos2d::Label* m_quitMenuLabel;
 
     cocos2d::ui::Button* m_startButton;
     cocos2d::ui::Button* m_optionsButton;

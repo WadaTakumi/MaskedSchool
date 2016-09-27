@@ -1,11 +1,11 @@
 #include "MenuScreenScene.h"
-#include "GameScene.h"
-#include "enumerations.h"
+#include "MainScene.h"
 
 USING_NS_CC;
 
 MenuScreen::MenuScreen():
 m_menuLabel(),
+m_quitMenuLabel(),
 m_startButton(),
 m_optionsButton(),
 m_quitButton(),
@@ -37,10 +37,18 @@ bool MenuScreen::init()
     }
 
     m_menuLabel = cocos2d::Label::createWithSystemFont("MAIN MENU", "Arial", 50);
-    m_menuLabel->enableBold();
+	m_menuLabel->enableGlow(cocos2d::Color4B::BLUE);
     m_menuLabel->setPosition(this->getBoundingBox().getMidX(), this->getBoundingBox().getMaxY() - 100);
     m_menuLabel->setColor(Color3B::GREEN);
+
+	m_quitMenuLabel = cocos2d::Label::createWithSystemFont("Are you sure you want to quit?", "Arial", 50);
+	m_quitMenuLabel->enableGlow(cocos2d::Color4B::BLUE);
+	m_quitMenuLabel->setPosition(this->getBoundingBox().getMidX(), this->getBoundingBox().getMaxY() - 100);
+	m_quitMenuLabel->setColor(Color3B::GREEN);
+	m_quitMenuLabel->setVisible(false);
+
     this->addChild(m_menuLabel);
+	this->addChild(m_quitMenuLabel);
 
     createMenuButtons();
 
@@ -55,8 +63,7 @@ void MenuScreen::startGame(Ref* sender, ui::Widget::TouchEventType eventType)
 	CCLOG("START button touched");
 	// Start test
 	CCLOG("Starting test scene...");
-	GameScene::setGameType(GT_LOCAL);
-	auto scene = GameScene::createScene();
+	auto scene = MainScene::createScene();
 	Director::getInstance()->replaceScene(scene);
 }
 
@@ -72,6 +79,19 @@ void MenuScreen::openExitMenu(Ref* sender, ui::Widget::TouchEventType eventType)
 {
 	if (eventType != ui::Widget::TouchEventType::ENDED)
 		return;
+	// Labels;
+	m_menuLabel->setVisible(false);
+	m_quitMenuLabel->setVisible(true);
+
+	// Main menu buttons
+	m_startButton->setVisible(false);
+	m_startButton->setTouchEnabled(false);
+	m_optionsButton->setVisible(false);
+	m_optionsButton->setTouchEnabled(false);
+	m_quitButton->setVisible(false);
+	m_quitButton->setTouchEnabled(false);
+
+	// Quit menu buttons
 	m_yesButton->setVisible(true);
 	m_yesButton->setTouchEnabled(true);
 	m_noButton->setVisible(true);
@@ -79,7 +99,20 @@ void MenuScreen::openExitMenu(Ref* sender, ui::Widget::TouchEventType eventType)
 }
 
 void MenuScreen::closeExitMenu()
-{
+{	
+	// Labels;
+	m_menuLabel->setVisible(true);
+	m_quitMenuLabel->setVisible(false);
+
+	// Main menu buttons
+	m_startButton->setVisible(true);
+	m_startButton->setTouchEnabled(true);
+	m_optionsButton->setVisible(true);
+	m_optionsButton->setTouchEnabled(true);
+	m_quitButton->setVisible(true);
+	m_quitButton->setTouchEnabled(true);
+
+	// Quit menu buttons
 	m_yesButton->setVisible(false);
 	m_yesButton->setTouchEnabled(false);
 	m_noButton->setVisible(false);
@@ -89,12 +122,12 @@ void MenuScreen::closeExitMenu()
 
 void MenuScreen::createMenuButtons()
 {
-    // LOCAL GAME
+    // START GAME
     m_startButton = ui::Button::create();
-    m_startButton->loadTextures("images/MenuButtonDefault.png", "images/MenuButtonHighlighted.png");
+    m_startButton->loadTextures("MenuButtonDefault.png", "MenuButtonHighlighted.png");
     m_startButton->setPosition(Point(this->getBoundingBox().getMidX(), 
                                      this->getBoundingBox().getMaxY() * 0.6));
-    m_startButton->setTitleText("LOCAL GAME");
+    m_startButton->setTitleText("START GAME");
     m_startButton->setTitleFontSize(22);
     m_startButton->setTitleColor(Color3B::WHITE);
 	m_startButton->setTouchEnabled(true);
@@ -102,7 +135,7 @@ void MenuScreen::createMenuButtons()
 
     // OPTIONS
     m_optionsButton = ui::Button::create();
-    m_optionsButton->loadTextures("images/MenuButtonDefault.png", "images/MenuButtonHighlighted.png");
+    m_optionsButton->loadTextures("MenuButtonDefault.png", "MenuButtonHighlighted.png");
     m_optionsButton->setPosition(Point(this->getBoundingBox().getMidX(),
                                       this->getBoundingBox().getMaxY() * 0.4));
     m_optionsButton->setTitleText("OPTIONS");
@@ -114,7 +147,7 @@ void MenuScreen::createMenuButtons()
 
     // QUIT GAME
     m_quitButton = ui::Button::create();
-    m_quitButton->loadTextures("images/MenuButtonDefault.png", "images/MenuButtonHighlighted.png");
+    m_quitButton->loadTextures("MenuButtonDefault.png", "MenuButtonHighlighted.png");
     m_quitButton->setPosition(Point(this->getBoundingBox().getMidX(), 
                                     this->getBoundingBox().getMaxY() * 0.2));
     m_quitButton->setTitleText("QUIT");
@@ -126,7 +159,7 @@ void MenuScreen::createMenuButtons()
 	// EXIT MENU BUTTONS
 	// YES
 	m_yesButton = ui::Button::create();
-	m_yesButton->loadTextures("images/MenuButtonDefault.png", "images/MenuButtonHighlighted.png");
+	m_yesButton->loadTextures("MenuButtonDefault.png", "MenuButtonHighlighted.png");
 	m_yesButton->setPosition(Point(this->getBoundingBox().getMidX(),
 								   this->getBoundingBox().getMaxY() * 0.6));
 	m_yesButton->setTitleText("YES");
@@ -138,7 +171,7 @@ void MenuScreen::createMenuButtons()
 
 	// NO
 	m_noButton = ui::Button::create();
-	m_noButton->loadTextures("images/MenuButtonDefault.png", "images/MenuButtonHighlighted.png");
+	m_noButton->loadTextures("MenuButtonDefault.png", "MenuButtonHighlighted.png");
 	m_noButton->setPosition(Point(this->getBoundingBox().getMidX(),
 								  this->getBoundingBox().getMaxY() * 0.4));
 	m_noButton->setTitleText("NO");
