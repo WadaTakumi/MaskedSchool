@@ -86,8 +86,8 @@ bool MainScene::init()
 	m_pPlayer = Player::create(m_pWorld);
 	this->addChild(m_pPlayer);
 
-	//m_pEnemy = Enemy::create();
-	//this->addChild(m_pEnemy);
+	m_pEnemy = Enemy::create(m_pWorld);
+	this->addChild(m_pEnemy);
 
 	m_pBackGroundLayer = BackgroundLayer::create();
 	this->addChild(m_pBackGroundLayer,-10);
@@ -151,7 +151,7 @@ void MainScene::initPhysics()
 {
 	//物理ワールド
 	b2Vec2 gravity;
-	gravity.Set(0.0f, 0.0f);
+	gravity.Set(0.0f, -9.8f);
 	m_pWorld = new b2World(gravity);
 
 	// 表示用のインスタンスを作成
@@ -161,9 +161,45 @@ void MainScene::initPhysics()
 	m_pDraw->SetFlags(flags);
 	// 表示インスタンスをワールドにセット
 	m_pWorld->SetDebugDraw(m_pDraw);
+
+
+	// 壁全体で一つのオブジェクトにする
+	b2BodyDef groudBodyDef;
+	groudBodyDef.position.Set(0, 0);
+
+	m_groundBody = m_pWorld->CreateBody(&groudBodyDef);
+
+
+	b2Vec2 leftBottom(0, 100);
+	b2Vec2 rightBottom(960, 100);
+
+	// ピクセルをメートルに変換
+	leftBottom.x /= PTM_RATIO;
+	leftBottom.y /= PTM_RATIO;
+	rightBottom.x /= PTM_RATIO;
+	rightBottom.y /= PTM_RATIO;
+
+	b2EdgeShape groudb2EdgeShape;
+	b2FixtureDef groundFixttureDef;
+	//b2FixtureDef playerfd;
+	//b2FixtureDef enemyfd;
+
+	groundFixttureDef.shape = &groudb2EdgeShape;
+	//groundFixttureDef.density = 1.0f;
+	groundFixttureDef.friction = 0.0f;
+	//groundFixttureDef.restitution = 1.0f;
+
+	// 地面
+	groudb2EdgeShape.Set(leftBottom, rightBottom);
+	m_groundBody->CreateFixture(&groundFixttureDef);
+
+
+	//m_pWorld->SetContactListener(this);
+
 }
 
-void MainScene::draw(cocos2d::Renderer * renderer, const cocos2d::Mat4 & transform, uint32_t flags)
+void MainScene::draw(cocos2d::Renderer * renderer,
+	const cocos2d::Mat4 & transform, uint32_t flags)
 {
 	// 物理ワールドをデバッグ表示
 	m_pWorld->DrawDebugData();

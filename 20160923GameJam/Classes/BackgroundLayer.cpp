@@ -90,10 +90,10 @@ bool BackgroundLayer::init()
 
 void BackgroundLayer::update(float dt)
 {
-	spd += 7.0f;
+	spd += 13.0f;
 	for (int i = 0; i < 5; i++)
 	{
-		_groupe[i]->setPosition(_groupe[i]->getPosition().x - 7.0f, 0);
+		_groupe[i]->setPosition(_groupe[i]->getPosition().x - 13.0f, 0);
 	}
 
 	int num = spd / this->getContentSize().width;

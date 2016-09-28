@@ -28,6 +28,7 @@ private:
 	//cocos2d::CCParticleSystemQuad* m_pParticleEat;
 
 	int m_touchCount;
+	bool m_touchFlag;
 	float m_time;
 	int m_timeCount;
 	int m_randNum;
@@ -41,7 +42,7 @@ public:
 	Player::Player();
 	Player::~Player();
 	virtual bool init(b2World* world);
-	//void update(float dt)override;
+	void update(float dt)override;
 
 	bool onTouchBegan(
 		cocos2d::Touch* touch,

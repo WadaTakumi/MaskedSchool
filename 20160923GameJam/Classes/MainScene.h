@@ -22,6 +22,7 @@ private:
 	b2World* m_pWorld;
 	b2Draw* m_pDraw;
 	b2Vec2 m_position;
+	b2Body* m_groundBody;
 	BackGround* m_pBackGround;
 	BackgroundLayer* m_pBackGroundLayer;
 	BackGround2* m_pBackGround2;
