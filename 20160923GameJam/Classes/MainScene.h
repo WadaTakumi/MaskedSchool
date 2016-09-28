@@ -4,6 +4,7 @@
 #include "BackGround.h"
 #include "BackGround2.h"
 #include "BackGround3.h"
+#include "BackGroundLayer.h"
 #include "BaseMask.h"
 #include "MaskOfBullet.h"
 #include "cocos2d.h"
@@ -22,6 +23,7 @@ private:
 	b2Draw* m_pDraw;
 	b2Vec2 m_position;
 	BackGround* m_pBackGround;
+	BackgroundLayer* m_pBackGroundLayer;
 	BackGround2* m_pBackGround2;
 	BackGround3* m_pBackGround3;
 	Player* m_pPlayer;

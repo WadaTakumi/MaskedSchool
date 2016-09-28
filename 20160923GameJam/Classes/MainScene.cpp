@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "BackGround.h"
+#include "BackgroundLayer.h"
 #include "ui/CocosGUI.h"
 #include "SimpleAudioEngine.h"		// サウンド
 #include "Box2D/Box2D.h"
@@ -54,9 +55,7 @@ bool MainScene::init()
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-	scheduleUpdate();
-
-	bool m_getMaskflag=false;
+	//bool m_getMaskflag=false;
 
 	// リスナー ---------------------------------------------------
 	auto listener = EventListenerTouchOneByOne::create();
@@ -87,8 +86,12 @@ bool MainScene::init()
 	m_pPlayer = Player::create(m_pWorld);
 	this->addChild(m_pPlayer);
 
-	m_pEnemy = Enemy::create();
-	this->addChild(m_pEnemy);
+	//m_pEnemy = Enemy::create();
+	//this->addChild(m_pEnemy);
+
+	m_pBackGroundLayer = BackgroundLayer::create();
+	this->addChild(m_pBackGroundLayer);
+
 
 	//m_pbaseMask = BaseMask::create();
 	//this->addChild(m_pbaseMask);
@@ -96,6 +99,8 @@ bool MainScene::init()
 	//一時的なコメントアウト 9/27
 	//m_pMaskOfBullet = MaskOfBullet::create();
 	//this->addChild(m_pMaskOfBullet);
+
+	scheduleUpdate();
 
 	return true;
 }
@@ -137,9 +142,9 @@ void MainScene::update(float dt)
 	}
 
 
-	collisionDetection();
-	
-	getGetMaskflag();
+	//collisionDetection();
+	//
+	//getGetMaskflag();
 }
 
 void MainScene::initPhysics()
@@ -164,25 +169,32 @@ void MainScene::draw(cocos2d::Renderer * renderer, const cocos2d::Mat4 & transfo
 	m_pWorld->DrawDebugData();
 }
 
-void MainScene::collisionDetection()
+//void MainScene::collisionDetection()
+//{
+//	//Rect rect_player = m_pPlayer->getBoundingBox();
+//	////Rect rect_mask = m_pMaskOfBullet->getBoundingBox();
+//	//bool hit= rect_player.intersectsRect(rect_mask);
+//
+//
+//	if (touchPoint.x < 640 / 2 / PTM_RATIO)
+//	{
+//		this->m_pPlayer->jump();
+//	}
+//
+//	if (touchPoint.x > 640 / 2 / PTM_RATIO)
+//	{
+//		this->m_pbaseMask->MaskAction();
+//	}
+//
+//
+//bool MainScene::getGetMaskflag()
+//{
+//	return m_getMaskflag;
+//}
+
+
+bool MainScene::onTouchBegan(cocos2d::Touch * touch,
+	cocos2d::Event * unused_event)
 {
-	//Rect rect_player = m_pPlayer->getBoundingBox();
-	////Rect rect_mask = m_pMaskOfBullet->getBoundingBox();
-	//bool hit= rect_player.intersectsRect(rect_mask);
-
-
-	if (touchPoint.x < 640 / 2 / PTM_RATIO)
-	{
-		this->m_pPlayer->jump();
-	}
-
-	if (touchPoint.x > 640 / 2 / PTM_RATIO)
-	{
-		this->m_pbaseMask->MaskAction();
-	}
-
-
-bool MainScene::getGetMaskflag()
-{
-	return m_getMaskflag;
+	return false;
 }

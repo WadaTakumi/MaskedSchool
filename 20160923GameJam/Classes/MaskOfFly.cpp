@@ -17,7 +17,7 @@ USING_NS_CC;
 ÅyñﬂílÅz
 ñ≥Çµ
 */
-bool MaskOfBullet::init()
+bool MaskOfFly::init()
 {
 
 	m_mask = Sprite::create("mask1.png");
