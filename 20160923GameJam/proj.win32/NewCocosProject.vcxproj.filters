@@ -63,6 +63,10 @@
     <ClCompile Include="..\Classes\QueryCallback.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\MaskOfFly.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\MaskOfSpeadUp.cpp" />
     <ClCompile Include="..\Classes\BackgroundLayer.cpp">
       <Filter>src</Filter>
     </ClCompile>
@@ -120,6 +124,10 @@
     <ClInclude Include="..\Classes\QueryCallback.h">
       <Filter>src</Filter>
     </ClInclude>
+ 
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MaskOfSpeadUp.h" />
     <ClInclude Include="..\Classes\BackgroundLayer.h">
       <Filter>src</Filter>
     </ClInclude>
