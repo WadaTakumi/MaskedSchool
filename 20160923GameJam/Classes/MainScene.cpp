@@ -58,6 +58,16 @@ bool MainScene::init()
 
 	bool m_getMaskflag=false;
 
+	// リスナー ---------------------------------------------------
+	auto listener = EventListenerTouchOneByOne::create();
+	listener->onTouchBegan = CC_CALLBACK_2(MainScene::onTouchBegan, this);
+	//listener->onTouchesEnded = CC_CALLBACK_2(PlayerA::onTouchesEnded, this);
+	//listener->onTouchesMoved = CC_CALLBACK_2(PlayerA::onTouchesMoved, this);
+	// -----------------------------------------------------------
+	// イベントリスナーを作成---------------------------------------
+	this->getEventDispatcher()->addEventListenerWithSceneGraphPriority(listener, this);
+	// -----------------------------------------------------------
+	
 	//Sprite* bg = Sprite::create("bg.png");
 	//bg->setPosition(Vec2((860 / 2) , (960 / 2) ));
 	//bg->setScale(6);
@@ -80,6 +90,9 @@ bool MainScene::init()
 	m_pEnemy = Enemy::create();
 	this->addChild(m_pEnemy);
 
+	//m_pbaseMask = BaseMask::create();
+	//this->addChild(m_pbaseMask);
+	
 	//一時的なコメントアウト 9/27
 	//m_pMaskOfBullet = MaskOfBullet::create();
 	//this->addChild(m_pMaskOfBullet);
@@ -157,12 +170,17 @@ void MainScene::collisionDetection()
 	////Rect rect_mask = m_pMaskOfBullet->getBoundingBox();
 	//bool hit= rect_player.intersectsRect(rect_mask);
 
-	//if (hit)
-	//{
-	//	//m_pMaskOfBullet->setVisible(false);
-	//	m_getMaskflag = true;
-	//}
-}
+
+	if (touchPoint.x < 640 / 2 / PTM_RATIO)
+	{
+		this->m_pPlayer->jump();
+	}
+
+	if (touchPoint.x > 640 / 2 / PTM_RATIO)
+	{
+		this->m_pbaseMask->MaskAction();
+	}
+
 
 bool MainScene::getGetMaskflag()
 {
