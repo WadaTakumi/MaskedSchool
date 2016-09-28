@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="32" tileheight="32" nextobjectid="1">
  <tileset firstgid="1" name="CdH_TILES3" tilewidth="32" tileheight="32" tilecount="400" columns="20">
-  <image source="../../../../../Downloads/CdH_TILES3.png" width="640" height="640"/>
+  <image source="CdH_TILES3.png" width="640" height="640"/>
  </tileset>
  <tileset firstgid="401" name="CdH_TILES4" tilewidth="32" tileheight="32" tilecount="400" columns="20">
-  <image source="../../../../../Downloads/CdH_TILES4.png" width="640" height="640"/>
+  <image source="CdH_TILES4.png" width="640" height="640"/>
  </tileset>
  <layer name="タイル・レイヤー1" width="30" height="20">
   <data encoding="base64" compression="zlib">
