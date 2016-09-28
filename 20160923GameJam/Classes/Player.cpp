@@ -164,7 +164,7 @@ bool Player::init(b2World* world)
 
 void Player::jump()
 {
-	b2Vec2 impulse(0, 5.f);
+	b2Vec2 impulse(0, 0.5f);
 	b2Vec2 point = m_pbPlayer->GetWorldCenter();
 	m_pbPlayer->ApplyLinearImpulse(impulse, point, true);
 }

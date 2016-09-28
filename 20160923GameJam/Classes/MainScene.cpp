@@ -196,5 +196,20 @@ void MainScene::draw(cocos2d::Renderer * renderer, const cocos2d::Mat4 & transfo
 bool MainScene::onTouchBegan(cocos2d::Touch * touch,
 	cocos2d::Event * unused_event)
 {
+	Vec2 touchPoint = touch->getLocation();
+
+	// boxç¿ïWånÇ…ïœä∑--------------------------------------
+	m_position.x = touchPoint.x / PTM_RATIO;
+	m_position.y = touchPoint.y / PTM_RATIO;
+	
+	
+	if (m_position.x < (640 / 2) / PTM_RATIO)
+	{
+		this->m_pPlayer->jump();
+	}
+	if (m_position.x > (640 / 2) / PTM_RATIO)
+	{
+	}
+
 	return false;
 }
