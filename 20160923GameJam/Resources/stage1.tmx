@@ -1,11 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="32" tileheight="32" nextobjectid="1">
- <tileset firstgid="1" name="CdH_TILES3" tilewidth="32" tileheight="32" tilecount="400" columns="20">
-  <image source="CdH_TILES3.png" width="640" height="640"/>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="32" tileheight="32" nextobjectid="8">
+ <tileset firstgid="1" name="bg1" tilewidth="32" tileheight="32" tilecount="800" columns="40">
+  <image source="bg1.png" width="1280" height="640"/>
  </tileset>
  <layer name="タイル・レイヤー1" width="30" height="20">
   <data encoding="base64" compression="zlib">
-   eJy1lVlSwzAMhm3gCiw3CG0Dw3vJMsB7WHKDsPQGhdIbBEqOzO8ZaVCdylmAmX5jy5L1y3Y0jawx0T9zZow5B1PMZyAG8z/G6ZyCid3WiT27GMiFCfs13ZxGtisB30dl21xh/RrcKP6q46wlafOaFjeG0FkXpB0HdPMRRPS+l+LeMvI5vTVp831rNWrrpcKc3vcW3IF78EA+p9eQdqnk52+fa09Aan9q57Ms7DYFvfEjeALP4IV8Tu9L7M1tu9e4FzjGr13rUae5BK/gDazAO2k2pCvP7PdfQaNWu9a3TrMGH+ATbISWnDfifiQVjVrtWt/WAV3fXtt2Dy5p1HJovbsLLUdDOpJ6x9pvYG3/O8XP7IF9cGCG29q8a98hOALH4GSErc279k3c/xOYgbinnQp7qsz75EkoV+Z6ugdpz7hQvK+ZerbvT0RM6sVLeH01EE0vU/Jp9W8G0lVX33gt/zdeD6qa
+   eJzt0tlNw0AQxvExfggQXjlEE1SQ2BwtcDRAEggthNBA4gDuJUDohSNUwEOe+Ut45WG1aw5H5gEs/bSaz+P1NfGCyDZ2sJvZQ4TYOjfP3M72ReQAh/Jed3Gm1jY6OMFpiTzBCJe4wrWjTtXq6k/V89q5r3+MG9ziDhNHfa9WV/9P8gc84gnPmOLFk+t/cCSf95vcXKfzWiiyiCUsox7mfXbeIztHHxeS5yuhe5+ifN5za5/T/Xq+zLzZ/UbZudW5nq91vtcGVrEm1dURYjTQrLBuo4NjtErWk2/0DzBEglEJ5r5f3U/3FPX7cn3NLMhz+/6+eiv4uJ/vuYveZ5qtZq+id379JZvBvyr8teMNvgDYkw==
   </data>
  </layer>
+ <objectgroup name="オブジェクト・レイヤー 1" visible="0">
+  <object id="2" name="point1" type="mask" x="143" y="560"/>
+  <object id="3" name="point2" type="enemy" x="641" y="482"/>
+  <object id="4" name="point3" type="mask" x="305" y="592">
+   <ellipse/>
+  </object>
+  <object id="5" name="point4" type="enemy" x="879" y="563">
+   <ellipse/>
+  </object>
+  <object id="6" x="556" y="156" width="42" height="35">
+   <ellipse/>
+  </object>
+  <object id="7" x="565" y="169" width="2" height="1">
+   <ellipse/>
+  </object>
+ </objectgroup>
 </map>
