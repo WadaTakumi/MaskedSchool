@@ -148,6 +148,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\BackGround.cpp" />
     <ClCompile Include="..\Classes\BackGround2.cpp" />
     <ClCompile Include="..\Classes\BackGround3.cpp" />
+    <ClCompile Include="..\Classes\BackgroundLayer.cpp" />
     <ClCompile Include="..\Classes\BaseMask.cpp" />
     <ClCompile Include="..\Classes\DebugDrawNode.cpp" />
     <ClCompile Include="..\Classes\EventListenerGesture.cpp" />
@@ -167,6 +168,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\BackGround.h" />
     <ClInclude Include="..\Classes\BackGround2.h" />
     <ClInclude Include="..\Classes\BackGround3.h" />
+    <ClInclude Include="..\Classes\BackgroundLayer.h" />
     <ClInclude Include="..\Classes\BaseMask.h" />
     <ClInclude Include="..\Classes\DebugDrawNode.h" />
     <ClInclude Include="..\Classes\EventListenerGesture.h" />
