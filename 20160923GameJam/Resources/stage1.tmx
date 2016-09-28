@@ -1,11 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="32" tileheight="32" nextobjectid="1">
- <tileset firstgid="1" name="CdH_TILES3" tilewidth="32" tileheight="32" tilecount="400" columns="20">
-  <image source="CdH_TILES3.png" width="640" height="640"/>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="32" tileheight="32" nextobjectid="6">
+ <tileset firstgid="1" name="bg1" tilewidth="32" tileheight="32" tilecount="800" columns="40">
+  <image source="bg1.png" width="1280" height="640"/>
  </tileset>
  <layer name="タイル・レイヤー1" width="30" height="20">
   <data encoding="base64" compression="zlib">
-   eJy1lVlSwzAMhm3gCiw3CG0Dw3vJMsB7WHKDsPQGhdIbBEqOzO8ZaVCdylmAmX5jy5L1y3Y0jawx0T9zZow5B1PMZyAG8z/G6ZyCid3WiT27GMiFCfs13ZxGtisB30dl21xh/RrcKP6q46wlafOaFjeG0FkXpB0HdPMRRPS+l+LeMvI5vTVp831rNWrrpcKc3vcW3IF78EA+p9eQdqnk52+fa09Aan9q57Ms7DYFvfEjeALP4IV8Tu9L7M1tu9e4FzjGr13rUae5BK/gDazAO2k2pCvP7PdfQaNWu9a3TrMGH+ATbISWnDfifiQVjVrtWt/WAV3fXtt2Dy5p1HJovbsLLUdDOpJ6x9pvYG3/O8XP7IF9cGCG29q8a98hOALH4GSErc279k3c/xOYgbinnQp7qsz75EkoV+Z6ugdpz7hQvK+ZerbvT0RM6sVLeH01EE0vU/Jp9W8G0lVX33gt/zdeD6qa
+   eJy900lOAkEUxvHqJnEAtw7xCE4kunCl4LB0pTbNBRQcLiA0wgUUHE7gcAYn7uJ4Aheu/Xe6KlQq0A2kYfELeR/vVXWThyOEyMFFHlu2ENvIIIsNbNrx5xXuOkcVNZyQnaKAIo5wbMef19HAFa5xg9s+ckf+bt32P+EZL3jFG5pa3rTa5536u83f8YFPfOEbPx1yx9iFqH6Vqzk9H00IMYZxJJFKtPrM3NwFlU8k2p8Tlg9ib9Vzh/Xr+6b6B7nP/r7Euc+95nHt5yD3Oc7c3LdVu7/97DWfZo9mMIkpMbw6gyzWsD7EuoAiDnAYUs/ZgXksYNHfkR7mzbqOBi5wqdU7diAt7Up72Icj7zXnl7QZVatMffr9ZyihDE+r1b2u7C1JZXio4M8K5nQ5OePzZK3uU9+VtHvSVtDnGfe75Hnc2YF7PODR/0/Inm6o509yVgq/IlyVnprVmlfPEzWnU+/t373MWSuYjdDprKg53Ugb/581CRE=
   </data>
  </layer>
+ <objectgroup name="オブジェクト・レイヤー 1">
+  <object id="2" name="point1" type="mask" x="143" y="560"/>
+  <object id="3" name="point2" type="enemy" x="641" y="482"/>
+  <object id="4" name="point3" type="mask" x="305" y="592">
+   <ellipse/>
+  </object>
+  <object id="5" name="point4" type="enemy" x="879" y="563">
+   <ellipse/>
+  </object>
+ </objectgroup>
 </map>
