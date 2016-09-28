@@ -56,7 +56,7 @@ bool Enemy::init()
 
 	else if (eType == JUMPING)
 	{
-		// Init TEMP type enemy
+		// Init JUMPING type enemy
 		m_type == JUMPING;
 		m_enemy = Sprite::create("food.png");
 		m_enemy->setPosition(Vec2((960 / 2) + 850, (640 / 2) + 50));
