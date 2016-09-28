@@ -90,7 +90,7 @@ bool MainScene::init()
 	//this->addChild(m_pEnemy);
 
 	m_pBackGroundLayer = BackgroundLayer::create();
-	this->addChild(m_pBackGroundLayer);
+	this->addChild(m_pBackGroundLayer,-10);
 
 
 	//m_pbaseMask = BaseMask::create();
