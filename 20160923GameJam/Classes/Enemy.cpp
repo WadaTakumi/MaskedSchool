@@ -6,52 +6,64 @@ USING_NS_CC;
 bool Enemy::init()
 {
 	int eType = RandomHelper::random_int(0, 2);
-	//if (eType == CAR)
-	//{
-	//	// Init CAR type enemy
-	//	m_type == CAR;
-	//	m_enemy = Sprite::create("PixelCar.png");
-	//	m_enemy->setScale(1.5);
-	//	m_enemy->setPosition(Vec2((960 / 2) + 850, (640 / 2) + 50));
+	if (eType == CAR)
+	{
+		// Init CAR type enemy
+		m_type == CAR;
+		m_enemy = Sprite::create("PixelCar.png");
+		m_enemy->setScale(1.2);
+		m_enemy->setPosition(Vec2((960 / 2) + 850, (640 / 2) + 50));
 
-	//// アクション（スクロール）
-	//auto actionMoveByenemy = MoveBy::create(3.0, Vec2(-1500, 0));
-	//m_enemy->runAction(actionMoveByenemy);
-	//}
-	//else if (eType == BIRD)
-	//{
+	// アクション（スクロール）
+	auto actionMoveByenemy = MoveBy::create(3.0, Vec2(-1500, 0));
+	m_enemy->runAction(actionMoveByenemy);
+	}
+	else if (eType == BIRD)
+	{
 		// init BIRD type enemy
 		m_type = BIRD;
 		char str[100];
 		// Load chicken animation
 		SpriteFrameCache::getInstance()->addSpriteFramesWithFile("chicken/flying/flying.plist");
-		Vec2 origin = Director::getInstance()->getVisibleOrigin();
-		Vec2 visibleSize = Director::getInstance()->getVisibleSize();
 		for (int i = 0; i < 3; ++i)
 		{
 			auto spriteCache = SpriteFrameCache::getInstance();
-			sprintf(str, "flying%d.png", i);
-			m_flyingFrames.pushBack(spriteCache->getSpriteFrameByName(str));
+			sprintf(str, "frame-%d.png", i);
+			m_birdFlyingFrames.pushBack(spriteCache->getSpriteFrameByName(str));
 		}
-		auto animation = Animation::createWithSpriteFrames(m_flyingFrames, 0.1f);
-		auto animate = Animate::create(animation);
-		// TODO FIX ANIMATION
-		m_enemy = Sprite::createWithSpriteFrame(m_flyingFrames.front());
-		m_enemy->setScale(0.3);
+		// Default BIRD type enemy animation
+		auto animation = Animation::createWithSpriteFrames(m_birdFlyingFrames, 0.07f);
+		auto flyAnimate = Animate::create(animation);
+
+		SpriteFrameCache::getInstance()->addSpriteFramesWithFile("chicken/flying/hit.plist");
+		for (int i = 0; i < 1; ++i)
+		{
+			auto spriteCache = SpriteFrameCache::getInstance();
+			sprintf(str, "frame-%d.png", i);
+			m_birdHitFrames.pushBack(spriteCache->getSpriteFrameByName(str));
+		}
+		// Activate this when a BIRD type enemy gets hit
+		animation = Animation::createWithSpriteFrames(m_birdHitFrames, 0.07f);
+
+		m_enemy = Sprite::createWithSpriteFrame(m_birdFlyingFrames.front());
+		m_enemy->setScale(0.15);
 		m_enemy->setPosition(Vec2((960 / 2) + 850, (640 / 2) + 70));
-		m_enemy->runAction(RepeatForever::create(animate));
+		m_enemy->runAction(RepeatForever::create(flyAnimate));
 
 		auto actionMoveByenemy = MoveBy::create(5.0, Vec2(-1500, 0));
 		m_enemy->runAction(actionMoveByenemy);
-	//}
+	}
 
-	//else if (eType == TEMP)
-	//{
-	//	// Init TEMP type enemy
-	//	m_type == TEMP;
-	//	m_enemy = Sprite::create("enemy.png");
-	//	m_enemy->setPosition(Vec2((960 / 2) + 850, (640 / 2) + 50));
-	//}
+	else if (eType == JUMPING)
+	{
+		// Init TEMP type enemy
+		m_type == JUMPING;
+		m_enemy = Sprite::create("food.png");
+		m_enemy->setPosition(Vec2((960 / 2) + 850, (640 / 2) + 50));
+		m_enemy->setScale(0.15);
+		auto actionMoveByenemy = MoveBy::create(3.0, Vec2(-1500, 0));
+		m_enemy->runAction(actionMoveByenemy);
+	}
 
 	this->addChild(m_enemy);
 

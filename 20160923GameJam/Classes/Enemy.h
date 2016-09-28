@@ -8,14 +8,15 @@ enum EnemyType
 {
 	CAR = 0,		// Fast mover
 	BIRD = 1,		// Flying
-	TEMP = 2,		// Jumping (TBD)
+	JUMPING = 2,		// Jumping (TBD)
 };
 class Enemy : public cocos2d::Layer
 {
 private:
 	cocos2d::Sprite* m_enemy;
 	EnemyType m_type;
-	cocos2d::Vector<cocos2d::SpriteFrame*> m_flyingFrames;
+	cocos2d::Vector<cocos2d::SpriteFrame*> m_birdFlyingFrames;
+	cocos2d::Vector<cocos2d::SpriteFrame*> m_birdHitFrames;
 	//cocos2d::Sprite* m_bgRight;
 
 public:
