@@ -1,20 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="32" tileheight="32" nextobjectid="6">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="32" tileheight="32" nextobjectid="8">
  <tileset firstgid="1" name="bg1" tilewidth="32" tileheight="32" tilecount="800" columns="40">
   <image source="bg1.png" width="1280" height="640"/>
  </tileset>
  <layer name="タイル・レイヤー1" width="30" height="20">
   <data encoding="base64" compression="zlib">
-   eJy900lOAkEUxvHqJnEAtw7xCE4kunCl4LB0pTbNBRQcLiA0wgUUHE7gcAYn7uJ4Aheu/Xe6KlQq0A2kYfELeR/vVXWThyOEyMFFHlu2ENvIIIsNbNrx5xXuOkcVNZyQnaKAIo5wbMef19HAFa5xg9s+ckf+bt32P+EZL3jFG5pa3rTa5536u83f8YFPfOEbPx1yx9iFqH6Vqzk9H00IMYZxJJFKtPrM3NwFlU8k2p8Tlg9ib9Vzh/Xr+6b6B7nP/r7Euc+95nHt5yD3Oc7c3LdVu7/97DWfZo9mMIkpMbw6gyzWsD7EuoAiDnAYUs/ZgXksYNHfkR7mzbqOBi5wqdU7diAt7Up72Icj7zXnl7QZVatMffr9ZyihDE+r1b2u7C1JZXio4M8K5nQ5OePzZK3uU9+VtHvSVtDnGfe75Hnc2YF7PODR/0/Inm6o509yVgq/IlyVnprVmlfPEzWnU+/t373MWSuYjdDprKg53Ugb/581CRE=
+   eJzt0tlNw0AQxvExfggQXjlEE1SQ2BwtcDRAEggthNBA4gDuJUDohSNUwEOe+Ut45WG1aw5H5gEs/bSaz+P1NfGCyDZ2sJvZQ4TYOjfP3M72ReQAh/Jed3Gm1jY6OMFpiTzBCJe4wrWjTtXq6k/V89q5r3+MG9ziDhNHfa9WV/9P8gc84gnPmOLFk+t/cCSf95vcXKfzWiiyiCUsox7mfXbeIztHHxeS5yuhe5+ifN5za5/T/Xq+zLzZ/UbZudW5nq91vtcGVrEm1dURYjTQrLBuo4NjtErWk2/0DzBEglEJ5r5f3U/3FPX7cn3NLMhz+/6+eiv4uJ/vuYveZ5qtZq+id379JZvBvyr8teMNvgDYkw==
   </data>
  </layer>
- <objectgroup name="オブジェクト・レイヤー 1">
+ <objectgroup name="オブジェクト・レイヤー 1" visible="0">
   <object id="2" name="point1" type="mask" x="143" y="560"/>
   <object id="3" name="point2" type="enemy" x="641" y="482"/>
   <object id="4" name="point3" type="mask" x="305" y="592">
    <ellipse/>
   </object>
   <object id="5" name="point4" type="enemy" x="879" y="563">
+   <ellipse/>
+  </object>
+  <object id="6" x="556" y="156" width="42" height="35">
+   <ellipse/>
+  </object>
+  <object id="7" x="565" y="169" width="2" height="1">
    <ellipse/>
   </object>
  </objectgroup>
