@@ -4,6 +4,7 @@
 #include "BackGround.h"
 #include "BackGround2.h"
 #include "BackGround3.h"
+#include "BaseMask.h"
 #include "MaskOfBullet.h"
 #include "cocos2d.h"
 #include "Box2D\Box2D.h"
@@ -11,6 +12,7 @@
 
 class Player;
 class Enemy;
+
 
 class MainScene : public cocos2d::Layer
 {
@@ -24,6 +26,7 @@ private:
 	BackGround3* m_pBackGround3;
 	Player* m_pPlayer;
 	Enemy* m_pEnemy;
+	BaseMask* m_pbaseMask;
 	//MaskOfBullet* m_pMaskOfBullet;
 
 	int pPrintTimeCount;
