@@ -1,5 +1,4 @@
 #include "MaskPower.h"
-#include "Player.h"
 #include "ui/CocosGUI.h"
 
 USING_NS_CC;
@@ -19,11 +18,5 @@ bool MaskPower::init()
 	m_Bullet->runAction(actionMoveBy);
 
 
-	//scheduleUpdate();
-
 	return true;
 }
-
-//void MaskPower::update(float dt)
-//{
-//}
