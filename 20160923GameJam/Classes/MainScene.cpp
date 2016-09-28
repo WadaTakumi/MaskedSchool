@@ -122,6 +122,11 @@ void MainScene::update(float dt)
 			spr->setPosition(pos.x*PTM_RATIO, pos.y*PTM_RATIO);
 		}
 	}
+
+
+	collisionDetection();
+	
+	getGetMaskflag();
 }
 
 void MainScene::initPhysics()
@@ -146,29 +151,20 @@ void MainScene::draw(cocos2d::Renderer * renderer, const cocos2d::Mat4 & transfo
 	m_pWorld->DrawDebugData();
 }
 
-bool MainScene::onTouchBegan(cocos2d::Touch * touch,
-	cocos2d::Event * unused_event)
+void MainScene::collisionDetection()
 {
 	//Rect rect_player = m_pPlayer->getBoundingBox();
 	////Rect rect_mask = m_pMaskOfBullet->getBoundingBox();
 	//bool hit= rect_player.intersectsRect(rect_mask);
-	Vec2 touchPoint = touch->getLocation();
-	m_position.x = touchPoint.x / PTM_RATIO;
-	m_position.y = touchPoint.y / PTM_RATIO;
 
-
-	if (touchPoint.x < 640 / 2 / PTM_RATIO)
-	{
-		this->m_pPlayer->jump();
-	}
-
-	//if (touchPoint.x > 640 / 2 / PTM_RATIO)
+	//if (hit)
 	//{
-	//	//m_pBullet = MaskPower::create();
-	//	//m_pBullet->setPosition(m_pPlayer->getPosition());
-	//	//this->addChild(m_pBullet);
+	//	//m_pMaskOfBullet->setVisible(false);
+	//	m_getMaskflag = true;
 	//}
+}
 
-
-	return true;
+bool MainScene::getGetMaskflag()
+{
+	return m_getMaskflag;
 }
