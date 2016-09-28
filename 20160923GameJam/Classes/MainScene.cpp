@@ -86,8 +86,8 @@ bool MainScene::init()
 	m_pPlayer = Player::create(m_pWorld);
 	this->addChild(m_pPlayer);
 
-	//m_pEnemy = Enemy::create();
-	//this->addChild(m_pEnemy);
+	m_pEnemy = Enemy::create(m_pWorld);
+	this->addChild(m_pEnemy);
 
 	m_pBackGroundLayer = BackgroundLayer::create();
 	this->addChild(m_pBackGroundLayer,-10);
