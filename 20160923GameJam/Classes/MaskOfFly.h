@@ -18,7 +18,7 @@ class MaskOfFly : public BaseMask
 {
 private:
 
-	Back* m_pPlayer;
+	Player* m_pPlayer;
 
 public:
 	//‰Šú‰»
