@@ -15,7 +15,7 @@ bool Enemy::init(b2World* world)
 		m_type = CAR;
 		m_enemy = Sprite::create("PixelCar.png");
 		m_enemy->setScale(1.2f);
-		m_enemy->setPosition(Vec2((960 / 2) + 850, (640 / 2) + 50));
+		m_enemy->setPosition(Vec2((960 / 2) + 850, (640 / 2)));
 
 	// アクション（スクロール）
 	auto actionMoveByenemy = MoveBy::create(3.0, Vec2(-1500, 0));
@@ -37,6 +37,7 @@ bool Enemy::init(b2World* world)
 		// Default BIRD type enemy animation
 		auto animation = Animation::createWithSpriteFrames(m_birdFlyingFrames, 0.07f);
 		auto flyAnimate = Animate::create(animation);
+		flyAnimate->setTag(1);
 
 		SpriteFrameCache::getInstance()->addSpriteFramesWithFile("chicken/flying/hit.plist");
 		for (int i = 0; i < 1; ++i)
@@ -47,10 +48,12 @@ bool Enemy::init(b2World* world)
 		}
 		// Activate this when a BIRD type enemy gets hit
 		animation = Animation::createWithSpriteFrames(m_birdHitFrames, 0.07f);
+		auto fallAnimate = Animate::create(animation);
+		fallAnimate->setTag(2);
 
 		m_enemy = Sprite::createWithSpriteFrame(m_birdFlyingFrames.front());
 		m_enemy->setScale(0.15f);
-		m_enemy->setPosition(Vec2((960 / 2) + 850, (640 / 2) + 70));
+		m_enemy->setPosition(Vec2((960 / 2) + 850, (640 / 2) + 50));
 		m_enemy->runAction(RepeatForever::create(flyAnimate));
 
 		auto actionMoveByenemy = MoveBy::create(5.0, Vec2(-1500, 0));
@@ -62,7 +65,7 @@ bool Enemy::init(b2World* world)
 		// Init JUMPING type enemy
 		m_type = JUMPING;
 		m_enemy = Sprite::create("food.png");
-		m_enemy->setPosition(Vec2((960 / 2) + 850, (640 / 2) + 50));
+		m_enemy->setPosition(Vec2((960 / 2) + 850, (640 / 2)));
 		m_enemy->setScale(0.15f);
 		auto actionMoveByenemy = MoveBy::create(3.0, Vec2(-1500, 0));
 		m_enemy->runAction(actionMoveByenemy);
@@ -78,7 +81,24 @@ bool Enemy::init(b2World* world)
 	//auto actionMoveBym_bgRight = MoveBy::create(70.0, Vec2(-1500, 0));
 	//m_bgRight->runAction(actionMoveBym_bgRight);
 
+	// Set enemy physics
+	b2BodyDef enemyBodyDef;
+	b2FixtureDef enemyFixtureDef;
+	b2PolygonShape enemyDynamicBox;
+	enemyDynamicBox.SetAsBox(m_enemy->getContentSize().width,
+							 m_enemy->getContentSize().height);
 
+	enemyBodyDef.type = b2_dynamicBody;
+	enemyBodyDef.position.Set(m_enemy->getPosition().x, 
+							  m_enemy->getPosition().y);
+	enemyBodyDef.userData = m_enemy;
+	m_enemyBody = m_world->CreateBody(&enemyBodyDef);
+
+	enemyFixtureDef.shape = &enemyDynamicBox;
+	m_enemyBody->CreateFixture(&enemyFixtureDef);
+
+	m_hitOnHead = false;
+	m_scheduledForRemoval = false;
 
 	scheduleUpdate();
 
@@ -88,7 +108,19 @@ bool Enemy::init(b2World* world)
 
 void Enemy::update(float dt)
 {
+	// TODO add enemy colliders
+	if (m_type == BIRD && m_hitOnHead)
+	{
+		// Stop default flying animation
+		// and start falling animation
+		m_enemy->stopActionByTag(1);
+		m_enemy->runAction(this->getActionByTag(2));
+	}
 
+	//If(m_enemy.loc == ruudun ulkopuolella)
+	//{
+	//	  m_scheduledForRemoval = true;
+	//}
 }
 
 Enemy* Enemy::create(b2World* world)
