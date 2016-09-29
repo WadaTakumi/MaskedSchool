@@ -17,9 +17,12 @@
 class BackgroundLayer : public cocos2d::Layer
 {
 private:
-	int visiblenum;
+	int m_visiblenum;
 
-	float spd;
+	float m_spd;	// スピードの値
+	float m_num;	// 何かの値
+
+	bool m_actOfRestoringSpeedFlag;
 
 	// タイルマップ
 	cocos2d::TMXTiledMap* map;
@@ -41,6 +44,8 @@ public:
 	void update(float dt);
 
 	void collide(cocos2d::Rect playerRect);
+
+	void changeScreenSpeed();
 };
 
 #endif // __BACKGROUNDLAYER_H__

@@ -44,15 +44,13 @@ public:
 	virtual bool init(b2World* world);
 	void update(float dt)override;
 
-	bool onTouchBegan(
-		cocos2d::Touch* touch,
-		cocos2d::Event *unused_event);
+	//bool onTouchBegan(
+	//	cocos2d::Touch* touch,
+	//	cocos2d::Event *unused_event);
 	
-	void jump(cocos2d::Ref * pSende);
-	void putOutToMaskPowerButton();
-	void useMaskPower(cocos2d::Ref * pSende);
 
 	void jump();
+	void ToShootBullet();
 
 	static Player* create(b2World* world);
 };

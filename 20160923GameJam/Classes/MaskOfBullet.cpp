@@ -43,6 +43,7 @@ bool MaskOfBullet::init()
 void MaskOfBullet::MaskAction()
 {
 	// アクション（スクロール）
-	auto actionMoveBym_bgLeft = MoveBy::create(10.0, Vec2(-1500, 0));
-	m_mask->runAction(actionMoveBym_bgLeft);
+	//auto actionMoveBym_bgLeft = MoveBy::create(10.0, Vec2(-1500, 0));
+	//m_mask->runAction(actionMoveBym_bgLeft);
+	this->m_pPlayer->ToShootBullet();
 }

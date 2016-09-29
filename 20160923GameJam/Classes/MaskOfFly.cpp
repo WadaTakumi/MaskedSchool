@@ -1,7 +1,9 @@
 //--インクルード----------------------------------------------------//
-#include "MaskOfBullet.h"
 #include "ui/CocosGUI.h"
 #include "MaskOfFly.h"
+#include "Box2D/Box2D.h"
+//#include "DebugDrawNode.h"
+//#include "QueryCallback.h"
 
 USING_NS_CC;
 
@@ -34,7 +36,7 @@ bool MaskOfFly::init()
 //--------------------------------------------------------------------------------------
 /*
 【機能】
-マスクの能力を使う(弾を打つ)
+マスクの能力を使う(2回ジャンプ)
 【引数】
 無し
 【戻値】
@@ -43,6 +45,8 @@ bool MaskOfFly::init()
 void MaskOfFly::MaskAction()
 {
 	// アクション（スクロール）
-	auto actionMoveBym_bgLeft = MoveBy::create(10.0, Vec2(-1500, 0));
-	m_mask->runAction(actionMoveBym_bgLeft);
+	//auto actionMoveBym_bgLeft = MoveBy::create(10.0, Vec2(-1500, 0));
+	//m_mask->runAction(actionMoveBym_bgLeft);
+
+	this->m_pPlayer->jump();
 }

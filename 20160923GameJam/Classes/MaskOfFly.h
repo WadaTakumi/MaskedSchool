@@ -4,6 +4,7 @@
 //--インクルード----------------------------------------------------//
 #include "cocos2d.h"
 #include "BaseMask.h"
+#include "Player.h"
 
 //**************************************************************************************
 //  MaskOfFlyクラス
@@ -15,6 +16,10 @@
 
 class MaskOfFly : public BaseMask
 {
+private:
+
+	Back* m_pPlayer;
+
 public:
 	//初期化
 	virtual bool init();

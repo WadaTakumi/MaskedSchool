@@ -29,8 +29,10 @@ bool BackgroundLayer::init()
 	//srand((unsigned int)time(NULL));
 
 
-	visiblenum = 0;
-	spd = 0;
+	m_visiblenum = 0;
+	m_spd = 0;
+	m_num = 0;
+	m_actOfRestoringSpeedFlag = false;
 
 	//画面サイズの取得
 	Size visibleSize = Director::getInstance()->getVisibleSize();
@@ -90,15 +92,17 @@ bool BackgroundLayer::init()
 
 void BackgroundLayer::update(float dt)
 {
-	spd += 13.0f;
+	m_spd += 13.0f;
+	m_num = 13.0f;
+
 	for (int i = 0; i < 5; i++)
 	{
-		_groupe[i]->setPosition(_groupe[i]->getPosition().x - 13.0f, 0);
+		_groupe[i]->setPosition(_groupe[i]->getPosition().x - m_num, 0);
 	}
 
-	int num = spd / this->getContentSize().width;
+	int num = m_spd / this->getContentSize().width;
 
-	if (visiblenum != num)
+	if (m_visiblenum != num)
 	{
 		for (int i = 0; i < 5; i++)
 		{
@@ -112,13 +116,29 @@ void BackgroundLayer::update(float dt)
 			}
 		}
 
-		visiblenum = num;
+		m_visiblenum = num;
 
-		if (visiblenum == 3)
+		if (m_visiblenum == 3)
 		{
-			visiblenum = 0;
-			spd = 0;
+			m_visiblenum = 0;
+			m_spd = 0;
 			this->Shuffle();
+		}
+	}
+
+	// もし背景速度上昇マスクを取ったなら、
+	// 3秒間背景を加速して、元に戻す
+	if (m_actOfRestoringSpeedFlag == true)
+	{
+		int time = 0;
+		time++;
+		
+		// 3秒
+		if (time >= 180)
+		{
+			m_actOfRestoringSpeedFlag = false;
+			m_spd += 13.0f;
+			m_num = 13.0f;
 		}
 	}
 }
@@ -180,4 +200,12 @@ void BackgroundLayer::Shuffle()
 			_groupe[i]->setVisible(true);
 		}
 	}
+}
+
+// 背景スクロールの速度を速くする
+void BackgroundLayer::changeScreenSpeed()
+{
+	m_spd += 15.0f;
+	m_num = 15.0f;
+	m_actOfRestoringSpeedFlag = true;
 }
