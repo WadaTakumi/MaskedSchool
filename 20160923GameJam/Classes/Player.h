@@ -5,6 +5,7 @@
 #include "cocos2d.h"
 #include "Box2D\Box2D.h"
 #include "QueryCallback.h"
+#include"BaseMask.h"
 
 using namespace cocos2d;
 
@@ -37,6 +38,8 @@ private:
 	//bool m_putOutMaskPowerButtonFlag;
 
 public:
+
+	BaseMask* m_Mask;
 
 	//static cocos2d::Scene* createScene();
 	Player::Player();

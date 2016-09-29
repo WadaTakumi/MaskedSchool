@@ -208,6 +208,7 @@ bool MainScene::onTouchBegan(cocos2d::Touch * touch,
 	if (m_position.x > (SCREEN_POSITION_X) / PTM_RATIO)
 	{
 		// mask power
+		this->m_pPlayer->m_Mask->MaskAction();
 	}
 
 	return false;

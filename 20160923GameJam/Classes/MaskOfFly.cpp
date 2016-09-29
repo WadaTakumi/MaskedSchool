@@ -23,9 +23,11 @@ bool MaskOfFly::init()
 {
 
 	m_mask = Sprite::create("mask1.png");
-	m_mask->setPosition(Vec2((960 / 2) + 350, (640 / 2) + 200));
+	m_mask->setPosition(Vec2(1200,random(300,640)));
 	this->addChild(m_mask);
 
+	auto actionMoveBym_bgLeft = MoveTo::create(4, Vec2(0, m_mask->getPosition().y));
+	m_mask->runAction(actionMoveBym_bgLeft);
 
 	return true;
 }
