@@ -48,5 +48,5 @@ void MaskOfFly::MaskAction()
 	//auto actionMoveBym_bgLeft = MoveBy::create(10.0, Vec2(-1500, 0));
 	//m_mask->runAction(actionMoveBym_bgLeft);
 
-	this->m_pPlayer->jump();
+	//this->m_pPlayer->jump();
 }

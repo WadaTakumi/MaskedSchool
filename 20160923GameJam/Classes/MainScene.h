@@ -15,7 +15,7 @@ class Player;
 class Enemy;
 
 
-class MainScene : public cocos2d::Layer
+class MainScene : public cocos2d::Layer,public b2ContactListener
 {
 private:
 

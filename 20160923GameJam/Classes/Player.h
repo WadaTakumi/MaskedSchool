@@ -49,7 +49,7 @@ public:
 	//	cocos2d::Event *unused_event);
 	
 
-	void jump();
+	void jump(bool flag);
 	void ToShootBullet();
 
 	static Player* create(b2World* world);

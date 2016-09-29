@@ -178,7 +178,7 @@ void MainScene::initPhysics()
 	m_groundBody->CreateFixture(&groundFixttureDef);
 
 
-	//m_pWorld->SetContactListener(this);
+	m_pWorld->SetContactListener(this);
 
 }
 
@@ -202,7 +202,7 @@ bool MainScene::onTouchBegan(cocos2d::Touch * touch,
 	// 画面の左側を押してジャンプする
 	if (m_position.x < (SCREEN_POSITION_X) / PTM_RATIO)
 	{
-		this->m_pPlayer->jump();
+		this->m_pPlayer->jump(m_notJampFlag);
 	}
 	// マスクを取った後、画面の右側を押してマスクパワーを使う
 	if (m_position.x > (SCREEN_POSITION_X) / PTM_RATIO)
