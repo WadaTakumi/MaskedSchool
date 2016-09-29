@@ -24,6 +24,9 @@ private:
 	b2World* m_world;
 	b2Body* m_enemyBody;
 
+	bool m_hitOnHead; // TODO rename?
+	bool m_scheduledForRemoval;
+
 public:
 
 	//static cocos2d::Scene* createScene();
