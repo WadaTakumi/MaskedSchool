@@ -174,15 +174,13 @@ void Player::update(float dt)
 //	this->addChild(m_pBullet);
 //}
 
-void Player::jump()
+void Player::jump(bool flag)
 {
-	if (m_touchFlag != true)
+	if (flag == true)
 	{
 		b2Vec2 impulse(0, 10.5f);
 		b2Vec2 point = m_pbPlayer->GetWorldCenter();
 		m_pbPlayer->ApplyLinearImpulse(impulse, point, true);
-
-		m_touchFlag = true;
 	}
 }
 

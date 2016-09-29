@@ -5,6 +5,7 @@
 #include "cocos2d.h"
 #include "Box2D\Box2D.h"
 #include "QueryCallback.h"
+#include"BaseMask.h"
 
 using namespace cocos2d;
 
@@ -38,6 +39,8 @@ private:
 
 public:
 
+	BaseMask* m_Mask;
+
 	//static cocos2d::Scene* createScene();
 	Player::Player();
 	Player::~Player();
@@ -49,7 +52,7 @@ public:
 	//	cocos2d::Event *unused_event);
 	
 
-	void jump();
+	void jump(bool flag);
 	void ToShootBullet();
 
 	static Player* create(b2World* world);

@@ -15,7 +15,7 @@ class Player;
 class Enemy;
 
 
-class MainScene : public cocos2d::Layer
+class MainScene : public cocos2d::Layer,public b2ContactListener
 {
 private:
 
@@ -37,8 +37,8 @@ private:
 	int pPrintTimeCount;
 	float m_time;
 	int m_timeCount;
-	bool m_getMaskflag;
-	bool m_notJampFlag;
+	bool m_getMaskflag;	// マスクを取ったかどうかの判定をするフラグ
+	bool m_notJampFlag;	// ジャンプしていないかどうかを判定するフラグ
 
 public:
 
@@ -57,6 +57,7 @@ public:
 		cocos2d::Event * unused_event);
 
 	void BeginContact(b2Contact* contact);
+	void EndContact(b2Contact* contact);
 
 	// implement the "static create()" method manually
 	CREATE_FUNC(MainScene);

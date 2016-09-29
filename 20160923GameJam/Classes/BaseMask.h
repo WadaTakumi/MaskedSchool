@@ -29,5 +29,7 @@ public:
 	//マスクの能力を使う
 	virtual void MaskAction();
 
+	CREATE_FUNC(BaseMask);
+
 };
 #endif   

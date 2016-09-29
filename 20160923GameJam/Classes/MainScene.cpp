@@ -57,8 +57,9 @@ bool MainScene::init()
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-	//m_getMaskflag = false;
+	m_getMaskflag = false;
 	m_notJampFlag = false;
+	//m_canMaskPowerFlag = false;
 
 	// リスナー ---------------------------------------------------
 	auto listener = EventListenerTouchOneByOne::create();
@@ -91,6 +92,8 @@ bool MainScene::init()
 	m_pBackGroundLayer = BackgroundLayer::create();
 	this->addChild(m_pBackGroundLayer,-10);
 
+	m_pbaseMask = BaseMask::create();
+	this->addChild(m_pbaseMask);
 
 	scheduleUpdate();
 
@@ -131,6 +134,23 @@ void MainScene::update(float dt)
 			b2Vec2 pos = body->GetPosition();
 			spr->setPosition(pos.x*PTM_RATIO, pos.y*PTM_RATIO);
 		}
+	}
+
+
+	//---------------------------------------------------------------
+	// マスクとプレイヤーの当たり判定
+	Rect rect_player = m_pPlayer->getBoundingBox();
+	Rect rect_mask = m_pbaseMask->getBoundingBox();
+	bool hit = rect_mask.intersectsRect(rect_player);
+	if (hit)
+	{
+		// マスクを消す
+		m_pbaseMask->removeFromParent();
+		m_pbaseMask = nullptr;
+		
+		// フラグを立てる
+		m_getMaskflag = true;
+		log("hit");
 	}
 }
 
@@ -178,7 +198,7 @@ void MainScene::initPhysics()
 	m_groundBody->CreateFixture(&groundFixttureDef);
 
 
-	//m_pWorld->SetContactListener(this);
+	m_pWorld->SetContactListener(this);
 
 }
 
@@ -202,12 +222,18 @@ bool MainScene::onTouchBegan(cocos2d::Touch * touch,
 	// 画面の左側を押してジャンプする
 	if (m_position.x < (SCREEN_POSITION_X) / PTM_RATIO)
 	{
-		this->m_pPlayer->jump();
+		this->m_pPlayer->jump(m_notJampFlag);
 	}
+	
+
 	// マスクを取った後、画面の右側を押してマスクパワーを使う
 	if (m_position.x > (SCREEN_POSITION_X) / PTM_RATIO)
-	{
-		// mask power
+	{	
+		if (m_getMaskflag)
+		{
+			// mask power
+			this->m_pPlayer->m_Mask->MaskAction();
+		}
 	}
 
 	return false;
@@ -231,5 +257,40 @@ void MainScene::BeginContact(b2Contact* contact)
 	else if (m_bodyB == m_groundBody)
 	{
 		m_notJampFlag = true;
+	}
+	
+
+	// マスクとプレイヤーの当たり判定
+	//Sprite* sprBodyA = (Sprite*)m_bodyA->GetUserData();
+	//Sprite* sprBodyB = (Sprite*)m_bodyB->GetUserData();
+	
+	//if ()
+	//{
+	//
+	//}
+	//else if (m_bodyB == m_pbaseMask)
+	//{
+		
+	//}
+
+	// プレイヤーと敵の当たり判定
+}
+
+void MainScene::EndContact(b2Contact * contact)
+{
+	b2Fixture* fixA = contact->GetFixtureA();
+	b2Fixture* fixB = contact->GetFixtureB();
+
+	m_bodyA = fixA->GetBody();
+	m_bodyB = fixB->GetBody();
+
+	// 地面とプレイヤーの当たり判定
+	if (m_bodyA == m_groundBody)
+	{
+		m_notJampFlag = false;
+	}
+	else if (m_bodyB == m_groundBody)
+	{
+		m_notJampFlag = false;
 	}
 }
