@@ -26,7 +26,7 @@ bool Player::init(b2World* world)
 {
 	//srand((unsigned int)time(NULL));
 
-	//scheduleUpdate();
+	scheduleUpdate();
 
 	// リスナー ---------------------------------------------------
 	/*auto listener = EventListenerTouchOneByOne::create();
@@ -45,7 +45,7 @@ bool Player::init(b2World* world)
 	m_pPlayer = Sprite::create("PlayerAMonster1.png");
 	m_pPlayer->setScale(0.1);
 	//m_pPlayer->setPosition(Vec2((840/2)-280,(960/2)-100));
-	this->addChild(m_pPlayer);	
+	this->addChild(m_pPlayer);
 	
 	b2BodyDef playerBodyDef;
 	b2FixtureDef playerFixtureDef;
@@ -61,7 +61,13 @@ bool Player::init(b2World* world)
 	m_pbPlayer->CreateFixture(&playerFixtureDef);
 
 	// カウンター
-	//m_touchCount = 0;
+	m_touchCount = 0;
+
+	m_touchFlag = false;
+
+	m_time = 0;
+
+	m_timeCount = 0;
 
 	// フラグ
 	//m_jumpFlag = false;
@@ -101,18 +107,24 @@ bool Player::init(b2World* world)
 	return true;
 }
 
-//void Player::update(float dt)
-//{
-//	//m_time++;
-	//if (m_time == 60)
-	//{
-	//	m_timeCount++;
-	//	m_time = 0;
-	//}
-	//if (m_timeCount == 1)
-	//{
-	//	log("time %d",m_timeCount);
-	//}
+void Player::update(float dt)
+{
+	if (m_touchFlag)
+	{
+		m_time++;
+		
+		if (m_time == 60)
+		{
+			m_timeCount++;
+			m_time = 0;
+		}
+		if (m_timeCount == 1)
+		{
+			m_touchFlag = false;
+			log("time %d",m_timeCount);
+			m_timeCount == 0;
+		}
+	}
 //
 //	
 //
@@ -125,7 +137,7 @@ bool Player::init(b2World* world)
 		//	putOutToMaskPowerButton();
 	//	}
 	//}
-//}
+}
 
 
 //void Player::jump(cocos2d::Ref * pSende)
@@ -164,9 +176,22 @@ bool Player::init(b2World* world)
 
 void Player::jump()
 {
-	b2Vec2 impulse(0, 0.5f);
-	b2Vec2 point = m_pbPlayer->GetWorldCenter();
-	m_pbPlayer->ApplyLinearImpulse(impulse, point, true);
+	if (m_touchFlag != true)
+	{
+		b2Vec2 impulse(0, 10.5f);
+		b2Vec2 point = m_pbPlayer->GetWorldCenter();
+		m_pbPlayer->ApplyLinearImpulse(impulse, point, true);
+
+		m_touchFlag = true;
+	}
+}
+
+void Player::ToShootBullet()
+{
+	//if ( = true)
+	//{	
+		
+	//}
 }
 
 Player * Player::create(b2World* world)

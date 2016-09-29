@@ -1,141 +1,52 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="win32">
-      <UniqueIdentifier>{84a8ebd7-7cf0-47f6-b75e-d441df67da40}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="resource">
-      <UniqueIdentifier>{715254bc-d70b-4ec5-bf29-467dd3ace079}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src">
-      <UniqueIdentifier>{bb6c862e-70e9-49d9-81b7-3829a6f50471}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>win32</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\AppDelegate.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\BackGround.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\HelloWorldScene.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\MainScene.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Player.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\BackGround2.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\BackGround3.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\Enemy.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\MaskPower.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\MaskOfBullet.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\BaseMask.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\MenuScreenScene.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\DebugDrawNode.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\EventListenerGesture.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\GLES-Render.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\QueryCallback.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\MaskOfFly.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\MaskOfSpeadUp.cpp" />
-    <ClCompile Include="..\Classes\BackgroundLayer.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
+    <ClCompile Include="..\Classes\AppDelegate.cpp" />
+    <ClCompile Include="..\Classes\BackGround.cpp" />
+    <ClCompile Include="..\Classes\BackGround2.cpp" />
+    <ClCompile Include="..\Classes\BackGround3.cpp" />
+    <ClCompile Include="..\Classes\BackgroundLayer.cpp" />
+    <ClCompile Include="..\Classes\BaseMask.cpp" />
+    <ClCompile Include="..\Classes\DebugDrawNode.cpp" />
+    <ClCompile Include="..\Classes\EventListenerGesture.cpp" />
+    <ClCompile Include="..\Classes\GLES-Render.cpp" />
+    <ClCompile Include="..\Classes\HelloWorldScene.cpp" />
+    <ClCompile Include="..\Classes\MainScene.cpp" />
+    <ClCompile Include="..\Classes\MaskOfBullet.cpp" />
     <ClCompile Include="..\Classes\MaskOfFly.cpp" />
+    <ClCompile Include="..\Classes\MaskOfSpeadUp.cpp" />
+    <ClCompile Include="..\Classes\MaskPower.cpp" />
+    <ClCompile Include="..\Classes\MenuScreenScene.cpp" />
+    <ClCompile Include="..\Classes\Player.cpp" />
+    <ClCompile Include="..\Classes\Enemy.cpp" />
+    <ClCompile Include="..\Classes\QueryCallback.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="..\Classes\MaskOfScreenToSpeedUp.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="main.h">
-      <Filter>win32</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\AppDelegate.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\BackGround.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\HelloWorldScene.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\MainScene.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\BackGround2.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\BackGround3.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Enemy.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\MaskPower.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\Player.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\MaskOfBullet.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\BaseMask.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\MenuScreenScene.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\DebugDrawNode.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\EventListenerGesture.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\GLES-Render.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\QueryCallback.h">
-      <Filter>src</Filter>
-    </ClInclude>
- 
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\MaskOfSpeadUp.h" />
-    <ClInclude Include="..\Classes\BackgroundLayer.h">
-      <Filter>src</Filter>
-    </ClInclude>
+    <ClInclude Include="..\Classes\AppDelegate.h" />
+    <ClInclude Include="..\Classes\BackGround.h" />
+    <ClInclude Include="..\Classes\BackGround2.h" />
+    <ClInclude Include="..\Classes\BackGround3.h" />
+    <ClInclude Include="..\Classes\BackgroundLayer.h" />
+    <ClInclude Include="..\Classes\BaseMask.h" />
+    <ClInclude Include="..\Classes\DebugDrawNode.h" />
+    <ClInclude Include="..\Classes\EventListenerGesture.h" />
+    <ClInclude Include="..\Classes\GLES-Render.h" />
+    <ClInclude Include="..\Classes\HelloWorldScene.h" />
+    <ClInclude Include="..\Classes\MainScene.h" />
+    <ClInclude Include="..\Classes\MaskOfBullet.h" />
     <ClInclude Include="..\Classes\MaskOfFly.h" />
+    <ClInclude Include="..\Classes\MaskOfSpeadUp.h" />
+    <ClInclude Include="..\Classes\MaskPower.h" />
+    <ClInclude Include="..\Classes\Enemy.h" />
+    <ClInclude Include="..\Classes\MenuScreenScene.h" />
+    <ClInclude Include="..\Classes\Player.h" />
+    <ClInclude Include="..\Classes\QueryCallback.h" />
+    <ClInclude Include="main.h" />
+    <ClInclude Include="..\Classes\MaskOfScreenToSpeedUp.h" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="game.rc">
-      <Filter>resource</Filter>
-    </ResourceCompile>
+    <ResourceCompile Include="game.rc" />
   </ItemGroup>
 </Project>

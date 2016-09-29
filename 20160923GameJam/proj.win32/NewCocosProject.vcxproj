@@ -157,6 +157,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\MainScene.cpp" />
     <ClCompile Include="..\Classes\MaskOfBullet.cpp" />
     <ClCompile Include="..\Classes\MaskOfFly.cpp" />
+    <ClCompile Include="..\Classes\MaskOfScreenToSpeedUp.cpp" />
     <ClCompile Include="..\Classes\MaskOfSpeadUp.cpp" />
     <ClCompile Include="..\Classes\MaskPower.cpp" />
     <ClCompile Include="..\Classes\MenuScreenScene.cpp" />
@@ -179,6 +180,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\MainScene.h" />
     <ClInclude Include="..\Classes\MaskOfBullet.h" />
     <ClInclude Include="..\Classes\MaskOfFly.h" />
+    <ClInclude Include="..\Classes\MaskOfScreenToSpeedUp.h" />
     <ClInclude Include="..\Classes\MaskOfSpeadUp.h" />
     <ClInclude Include="..\Classes\MaskPower.h" />
     <ClInclude Include="..\Classes\Enemy.h" />

@@ -1,17 +1,20 @@
 #include "Enemy.h"
 #include "ui/CocosGUI.h"
+#include "Box2D\Box2D.h"
 
 USING_NS_CC;
 
-bool Enemy::init()
+bool Enemy::init(b2World* world)
 {
+	m_world = world;
+
 	int eType = RandomHelper::random_int(0, 2);
 	if (eType == CAR)
 	{
 		// Init CAR type enemy
-		m_type == CAR;
+		m_type = CAR;
 		m_enemy = Sprite::create("PixelCar.png");
-		m_enemy->setScale(1.2);
+		m_enemy->setScale(1.2f);
 		m_enemy->setPosition(Vec2((960 / 2) + 850, (640 / 2) + 50));
 
 	// アクション（スクロール）
@@ -46,7 +49,7 @@ bool Enemy::init()
 		animation = Animation::createWithSpriteFrames(m_birdHitFrames, 0.07f);
 
 		m_enemy = Sprite::createWithSpriteFrame(m_birdFlyingFrames.front());
-		m_enemy->setScale(0.15);
+		m_enemy->setScale(0.15f);
 		m_enemy->setPosition(Vec2((960 / 2) + 850, (640 / 2) + 70));
 		m_enemy->runAction(RepeatForever::create(flyAnimate));
 
@@ -57,10 +60,10 @@ bool Enemy::init()
 	else if (eType == JUMPING)
 	{
 		// Init JUMPING type enemy
-		m_type == JUMPING;
+		m_type = JUMPING;
 		m_enemy = Sprite::create("food.png");
 		m_enemy->setPosition(Vec2((960 / 2) + 850, (640 / 2) + 50));
-		m_enemy->setScale(0.15);
+		m_enemy->setScale(0.15f);
 		auto actionMoveByenemy = MoveBy::create(3.0, Vec2(-1500, 0));
 		m_enemy->runAction(actionMoveByenemy);
 	}
@@ -86,4 +89,20 @@ bool Enemy::init()
 void Enemy::update(float dt)
 {
 
+}
+
+Enemy* Enemy::create(b2World* world)
+{
+	Enemy* enemy = new(std::nothrow) Enemy();
+	if (enemy && enemy->init(world))
+	{
+		enemy->autorelease();
+		return enemy;
+	}
+	else
+	{
+		delete enemy;
+		enemy = nullptr;
+		return nullptr;
+	}
 }
