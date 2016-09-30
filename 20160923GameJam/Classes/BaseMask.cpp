@@ -17,6 +17,7 @@
 bool BaseMask::init()
 {
 	m_mask = nullptr;
+	Player_pos = cocos2d::Vec2(0, 0);
 	return true;
 }
 

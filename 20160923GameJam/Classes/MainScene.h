@@ -61,6 +61,9 @@ public:
 	void BeginContact(b2Contact* contact);
 	void EndContact(b2Contact* contact);
 
+	void SpawnMask();
+	void RemoveMask();
+
 	// implement the "static create()" method manually
 	CREATE_FUNC(MainScene);
 };

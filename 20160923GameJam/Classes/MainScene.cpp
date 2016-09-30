@@ -98,10 +98,7 @@ bool MainScene::init()
 	m_pBackGroundLayer = BackgroundLayer::create();
 	this->addChild(m_pBackGroundLayer,-10);
 
-	m_pbaseMask = MaskOfBullet::create();
-	m_pbaseMask->m_mask= Sprite::create("mask1.png");
-	//m_pbaseMask->GetPos(m_pPlayer->m_pPlayerSpr->getPosition());
-	this->addChild(m_pbaseMask);
+
 
 	scheduleUpdate();
 
@@ -112,14 +109,16 @@ void MainScene::update(float dt)
 {	
 	m_time++;
 
-	if (m_time == 60)
+	if (m_time == 120)
 	{
 		m_timeCount++;
 		m_time = 0;
 	}
 	if (m_timeCount == 1)
 	{
+		SpawnMask();
 		log("time %d", m_timeCount);
+		m_timeCount = 0;
 	}
 
 
@@ -127,6 +126,7 @@ void MainScene::update(float dt)
 	// 物理ワールドの更新
 	m_pWorld->Step(1.0f / 60.0f, 8, 3);
 
+	
 	///////////////////////////
 	m_pbaseMask->GetPos(m_pPlayer->m_pPlayerSpr->getPosition());
 
@@ -309,5 +309,23 @@ void MainScene::EndContact(b2Contact * contact)
 	else if (m_bodyB == m_groundBody)
 	{
 		m_notJampFlag = false;
+	}
+}
+
+void MainScene::SpawnMask()
+{
+	m_pbaseMask = MaskOfBullet::create();
+	m_pbaseMask->m_mask = Sprite::create("mask1.png");
+	//m_pbaseMask->GetPos(m_pPlayer->m_pPlayerSpr->getPosition());
+	this->addChild(m_pbaseMask);
+}
+
+void MainScene::RemoveMask()
+{
+	Vec2 pos = m_pbaseMask->m_mask->getPosition();
+	if (pos.x < -20 &&m_pbaseMask != nullptr)
+	{
+		m_pbaseMask->removeFromParent();
+		m_pbaseMask = nullptr;
 	}
 }
