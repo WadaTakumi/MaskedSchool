@@ -89,7 +89,7 @@ bool MainScene::init()
 	m_pPlayer = Player::create(m_pWorld);
 	this->addChild(m_pPlayer);
 
-	// TODO: fix enemy data Init
+	// Enemy initialisation
 	m_enemyData = EnemyData::initEnemies();
 
 	m_pEnemy = Enemy::create(m_pWorld, m_enemyData);
