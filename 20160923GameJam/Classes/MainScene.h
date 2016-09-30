@@ -13,6 +13,7 @@
 
 class Player;
 class Enemy;
+class EnemyData;
 
 
 class MainScene : public cocos2d::Layer,public b2ContactListener
@@ -31,6 +32,7 @@ private:
 	BackGround3* m_pBackGround3;
 	Player* m_pPlayer;
 	Enemy* m_pEnemy;
+	EnemyData* m_enemyData;
 	BaseMask* m_pbaseMask;
 
 
