@@ -36,7 +36,7 @@ bool MenuScreen::init()
         return false;
     }
 
-    m_menuLabel = cocos2d::Label::createWithSystemFont("MAIN MENU", "Arial", 50);
+    m_menuLabel = cocos2d::Label::createWithSystemFont("Masked School", "Arial", 50);
 	m_menuLabel->enableGlow(cocos2d::Color4B::BLUE);
     m_menuLabel->setPosition(this->getBoundingBox().getMidX(), this->getBoundingBox().getMaxY() - 100);
     m_menuLabel->setColor(Color3B::GREEN);
