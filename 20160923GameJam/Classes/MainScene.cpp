@@ -62,7 +62,7 @@ bool MainScene::init()
 	m_notJampFlag = false;
 	//m_canMaskPowerFlag = false;
 
-	//m_pbaseMask = nullptr;
+	m_pbaseMask = nullptr;
 
 	// リスナー ---------------------------------------------------
 	auto listener = EventListenerTouchOneByOne::create();
@@ -128,7 +128,8 @@ void MainScene::update(float dt)
 
 	
 	///////////////////////////
-	m_pbaseMask->GetPos(m_pPlayer->m_pPlayerSpr->getPosition());
+	if(m_pbaseMask != nullptr)
+		m_pbaseMask->GetPos(m_pPlayer->m_pPlayerSpr->getPosition());
 
 	// 物理ワールド内全てのボディについて処理
 	for (b2Body* body = m_pWorld->GetBodyList();
@@ -246,7 +247,7 @@ bool MainScene::onTouchBegan(cocos2d::Touch * touch,
 	// マスクを取った後、画面の右側を押してマスクパワーを使う
 	if (m_position.x > (SCREEN_POSITION_X) / PTM_RATIO)
 	{	
-		if (m_getMaskflag||m_pbaseMask!=nullptr)
+		if (m_getMaskflag && m_pbaseMask!=nullptr)
 		{
 			// mask power
 			m_pbaseMask->MaskAction();
