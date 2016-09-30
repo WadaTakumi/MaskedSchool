@@ -1,7 +1,9 @@
 //--インクルード----------------------------------------------------//
-#include "ui/CocosGUI.h"
 #include "MaskOfFly.h"
+#include "Character.h"
+#include "ui/CocosGUI.h"
 #include "Box2D/Box2D.h"
+
 //#include "DebugDrawNode.h"
 //#include "QueryCallback.h"
 
@@ -51,4 +53,8 @@ void MaskOfFly::MaskAction()
 	//m_mask->runAction(actionMoveBym_bgLeft);
 
 	//this->m_pPlayer->jump();
+
+	//b2Vec2 impulse(0, 10.5f);
+	//b2Vec2 point = PLAYER->GetWorldCenter();
+	//PLAYER->ApplyLinearImpulse(impulse, point, true);
 }

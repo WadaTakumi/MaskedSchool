@@ -1,5 +1,6 @@
 #include "Player.h"
 #include "MainScene.h"
+#include "Character.h"
 #include "ui/CocosGUI.h"
 #include "Box2D/Box2D.h"
 #include "DebugDrawNode.h"
@@ -42,15 +43,20 @@ bool Player::init(b2World* world)
 	
 	
 	// プレイヤー
-	m_pPlayer = Sprite::create("PlayerAMonster1.png");
-	m_pPlayer->setScale(0.1);
-	//m_pPlayer->setPosition(Vec2((840/2)-280,(960/2)-100));
+	m_pPlayer = Sprite::create();
+	m_pPlayer->setScale(0.2);
+	m_pPlayer->setTag(PLAYER);
+	m_pPlayer->setPosition(Vec2((840/2)-280,(960/2)-100));
 	this->addChild(m_pPlayer);
 	
 	b2BodyDef playerBodyDef;
 	b2FixtureDef playerFixtureDef;
 	b2PolygonShape playerDynamicBox;
-	playerDynamicBox.SetAsBox(64.0f / 2 / PTM_RATIO, 64.f / 2 / PTM_RATIO);
+	playerDynamicBox.SetAsBox(64.0f / 2 / PTM_RATIO, 124.f / 2 / PTM_RATIO);
+
+	playerFixtureDef.density=0.5f;
+	playerBodyDef.gravityScale=1.5f;
+
 
 	playerBodyDef.type = b2_dynamicBody;
 	playerBodyDef.userData = m_pPlayer;
@@ -68,6 +74,45 @@ bool Player::init(b2World* world)
 	m_time = 0;
 
 	m_timeCount = 0;
+
+
+	//スプライトフレームキャッシュを作成する
+	auto cacher = SpriteFrameCache::getInstance();
+
+	//プリセットを読み込む
+
+	cacher->addSpriteFramesWithFile("run.plist");
+
+	//auto spriteMinion = Sprite::create("minion.png");
+
+	//画像を配列に読み込む
+	Vector<cocos2d::SpriteFrame*> frames;
+
+	for (int i = 1; i < 6; i++)
+	{
+		std::stringstream ss;
+		ss << "run000" << i;
+		ss << ".png";
+		/*std::cout << std::setfill('0');*/
+
+		/*ss << "runner" << i << ".png";*/
+		frames.pushBack(cacher->getSpriteFrameByName(ss.str()));
+	}
+
+
+	//アニメーションを作成する
+	auto anim = Animation::createWithSpriteFrames(frames, 0.1f);
+	//アニメーションアクションを作成する
+	auto action = Animate::create(anim);
+
+	//永久に繰り返すアクションを作成する
+	auto anime = RepeatForever::create(action);
+
+	//アクションを実行する
+	m_pPlayer->runAction(anime);
+
+
+
 
 	// フラグ
 	//m_jumpFlag = false;
@@ -178,7 +223,7 @@ void Player::jump(bool flag)
 {
 	if (flag == true)
 	{
-		b2Vec2 impulse(0, 10.5f);
+		b2Vec2 impulse(0, 40.0f);
 		b2Vec2 point = m_pbPlayer->GetWorldCenter();
 		m_pbPlayer->ApplyLinearImpulse(impulse, point, true);
 	}
@@ -188,7 +233,6 @@ void Player::ToShootBullet()
 {
 	//if ( = true)
 	//{	
-		
 	//}
 }
 

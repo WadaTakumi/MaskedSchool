@@ -16,9 +16,8 @@
 class BaseMask : public cocos2d::Node
 {
 private:
-
-
 public:
+
 
 	//マスクの画像
 	cocos2d::Sprite* m_mask;
@@ -27,9 +26,10 @@ public:
 	virtual bool init();
 
 	//マスクの能力を使う
-	virtual void MaskAction();
+	virtual void MaskAction() {};
 
-	CREATE_FUNC(BaseMask);
+
+	CREATE_FUNC(BaseMask)
 
 };
 #endif   

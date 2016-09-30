@@ -18,8 +18,6 @@ class MaskOfBullet : public BaseMask
 {
 private:
 
-	Player* m_pPlayer;
-
 public:
 	//初期化
 	virtual bool init();
@@ -27,6 +25,7 @@ public:
 	//マスクの能力を使う
 	virtual void MaskAction();
 
+	CREATE_FUNC(MaskOfBullet)
 };
 
 #endif 

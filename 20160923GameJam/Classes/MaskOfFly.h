@@ -5,6 +5,7 @@
 #include "cocos2d.h"
 #include "BaseMask.h"
 #include "Player.h"
+#include "Character.h"
 
 //**************************************************************************************
 //  MaskOfFlyƒNƒ‰ƒX

@@ -173,6 +173,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\BackGround3.h" />
     <ClInclude Include="..\Classes\BackgroundLayer.h" />
     <ClInclude Include="..\Classes\BaseMask.h" />
+    <ClInclude Include="..\Classes\Character.h" />
     <ClInclude Include="..\Classes\DebugDrawNode.h" />
     <ClInclude Include="..\Classes\EventListenerGesture.h" />
     <ClInclude Include="..\Classes\GLES-Render.h" />
