@@ -32,3 +32,7 @@ player
 y–ß’lz
 ‚È‚µ
 */
+void BaseMask::GetPlayer(Player*player)
+{
+	m_Player = player;
+}

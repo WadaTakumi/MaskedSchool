@@ -8,6 +8,7 @@
 #include "Box2D/Box2D.h"
 #include "DebugDrawNode.h"
 #include "QueryCallback.h"
+#include "EnemyData.h"
 
 
 USING_NS_CC;
@@ -88,7 +89,10 @@ bool MainScene::init()
 	m_pPlayer = Player::create(m_pWorld);
 	this->addChild(m_pPlayer);
 
-	m_pEnemy = Enemy::create(m_pWorld);
+	// TODO: fix enemy data Init
+	m_enemyData = EnemyData::initEnemies();
+
+	m_pEnemy = Enemy::create(m_pWorld, m_enemyData);
 	this->addChild(m_pEnemy);
 
 	m_pBackGroundLayer = BackgroundLayer::create();
@@ -96,6 +100,7 @@ bool MainScene::init()
 
 	m_pbaseMask = MaskOfBullet::create();
 	m_pbaseMask->m_mask= Sprite::create("mask1.png");
+	m_pbaseMask->GetPlayer(m_pPlayer);
 	this->addChild(m_pbaseMask);
 
 	scheduleUpdate();

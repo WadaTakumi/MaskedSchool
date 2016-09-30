@@ -4,73 +4,17 @@
 
 USING_NS_CC;
 
-bool Enemy::init(b2World* world)
+const int PTM_RATIO = 32;
+
+bool Enemy::init(b2World* world, EnemyData* data)
 {
 	m_world = world;
 
-	int eType = RandomHelper::random_int(0, 2);
-	if (eType == CAR)
-	{
-		// Init CAR type enemy
-		m_type = CAR;
-		m_enemy = Sprite::create("PixelCar.png");
-		m_enemy->setScale(1.2f);
-		m_enemy->setPosition(Vec2((960 / 2) + 850, (640 / 2)));
+	m_type = RandomHelper::random_int(0, 2);
 
-	// アクション（スクロール）
-	auto actionMoveByenemy = MoveBy::create(3.0, Vec2(-1500, 0));
+	m_enemy = data->getRandomEnemy(m_type);
+	auto actionMoveByenemy = MoveBy::create(5.0, Vec2(-1500, 0));
 	m_enemy->runAction(actionMoveByenemy);
-	}
-	else if (eType == BIRD)
-	{
-		// init BIRD type enemy
-		m_type = BIRD;
-		char str[100];
-		// Load chicken animation
-		SpriteFrameCache::getInstance()->addSpriteFramesWithFile("chicken/flying/flying.plist");
-		for (int i = 0; i < 3; ++i)
-		{
-			auto spriteCache = SpriteFrameCache::getInstance();
-			sprintf(str, "frame-%d.png", i);
-			m_birdFlyingFrames.pushBack(spriteCache->getSpriteFrameByName(str));
-		}
-		// Default BIRD type enemy animation
-		auto animation = Animation::createWithSpriteFrames(m_birdFlyingFrames, 0.07f);
-		auto flyAnimate = Animate::create(animation);
-		flyAnimate->setTag(1);
-
-		SpriteFrameCache::getInstance()->addSpriteFramesWithFile("chicken/flying/hit.plist");
-		for (int i = 0; i < 1; ++i)
-		{
-			auto spriteCache = SpriteFrameCache::getInstance();
-			sprintf(str, "frame-%d.png", i);
-			m_birdHitFrames.pushBack(spriteCache->getSpriteFrameByName(str));
-		}
-		// Activate this when a BIRD type enemy gets hit
-		animation = Animation::createWithSpriteFrames(m_birdHitFrames, 0.07f);
-		auto fallAnimate = Animate::create(animation);
-		fallAnimate->setTag(2);
-
-		m_enemy = Sprite::createWithSpriteFrame(m_birdFlyingFrames.front());
-		m_enemy->setScale(0.15f);
-		m_enemy->setPosition(Vec2((960 / 2) + 850, (640 / 2) + 50));
-		m_enemy->runAction(RepeatForever::create(flyAnimate));
-
-		auto actionMoveByenemy = MoveBy::create(5.0, Vec2(-1500, 0));
-		m_enemy->runAction(actionMoveByenemy);
-	}
-
-	else if (eType == JUMPING)
-	{
-		// Init JUMPING type enemy
-		m_type = JUMPING;
-		m_enemy = Sprite::create("food.png");
-		m_enemy->setPosition(Vec2((960 / 2) + 850, (640 / 2)));
-		m_enemy->setScale(0.15f);
-		auto actionMoveByenemy = MoveBy::create(3.0, Vec2(-1500, 0));
-		m_enemy->runAction(actionMoveByenemy);
-	}
-
 	this->addChild(m_enemy);
 
 	//m_bgRight = Sprite::create("bg2Right.png");
@@ -85,8 +29,7 @@ bool Enemy::init(b2World* world)
 	b2BodyDef enemyBodyDef;
 	b2FixtureDef enemyFixtureDef;
 	b2PolygonShape enemyDynamicBox;
-	enemyDynamicBox.SetAsBox(m_enemy->getContentSize().width,
-							 m_enemy->getContentSize().height);
+	enemyDynamicBox.SetAsBox(1.0f, 1.0f);
 
 	enemyBodyDef.type = b2_dynamicBody;
 	enemyBodyDef.position.Set(m_enemy->getPosition().x, 
@@ -109,7 +52,8 @@ bool Enemy::init(b2World* world)
 void Enemy::update(float dt)
 {
 	// TODO add enemy colliders
-	if (m_type == BIRD && m_hitOnHead)
+	if (m_type == EnemyData::EnemyType::FLYING 
+		&& m_hitOnHead)
 	{
 		// Stop default flying animation
 		// and start falling animation
@@ -123,10 +67,10 @@ void Enemy::update(float dt)
 	//}
 }
 
-Enemy* Enemy::create(b2World* world)
+Enemy* Enemy::create(b2World* world, EnemyData* data)
 {
 	Enemy* enemy = new(std::nothrow) Enemy();
-	if (enemy && enemy->init(world))
+	if (enemy && enemy->init(world, data))
 	{
 		enemy->autorelease();
 		return enemy;

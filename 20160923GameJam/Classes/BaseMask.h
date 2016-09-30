@@ -18,6 +18,7 @@ class BaseMask : public cocos2d::Node
 private:
 public:
 
+	Player*m_Player;
 
 	//ƒ}ƒXƒN‚Ì‰æ‘œ
 	cocos2d::Sprite* m_mask;
@@ -30,6 +31,8 @@ public:
 
 
 	CREATE_FUNC(BaseMask)
+
+	void GetPlayer(Player*player);
 
 };
 #endif   

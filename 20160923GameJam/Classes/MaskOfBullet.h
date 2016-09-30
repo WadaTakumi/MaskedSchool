@@ -17,6 +17,7 @@
 class MaskOfBullet : public BaseMask
 {
 private:
+	Player*m_Player;
 
 public:
 	//‰Šú‰»
@@ -26,6 +27,7 @@ public:
 	virtual void MaskAction();
 
 	CREATE_FUNC(MaskOfBullet)
+
 };
 
 #endif 

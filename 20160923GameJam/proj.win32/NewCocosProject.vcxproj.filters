@@ -45,7 +45,7 @@
     <ClInclude Include="..\Classes\QueryCallback.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="..\Classes\MaskOfScreenToSpeedUp.h" />
-    <ClInclude Include="..\Classes\Character.h" />
+    <ClInclude Include="..\Classes\EnemyData.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc" />
