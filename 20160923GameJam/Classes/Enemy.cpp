@@ -10,20 +10,12 @@ bool Enemy::init(b2World* world, EnemyData* data)
 {
 	m_world = world;
 
-	m_type = RandomHelper::random_int(0, 2);
+	m_type = static_cast<EnemyData::EnemyType>(RandomHelper::random_int(0, 2));
 
-	m_enemy = data->getRandomEnemy(m_type);
-	auto actionMoveByenemy = MoveBy::create(5.0, Vec2(-1500, 0));
-	m_enemy->runAction(actionMoveByenemy);
-	this->addChild(m_enemy);
+	m_enemy = data->getEnemyByType(m_type);
 
-	//m_bgRight = Sprite::create("bg2Right.png");
-	//m_bgRight->setPosition(Vec2((visibleSize.width / 2 + (visibleSize.width / 2 / 2 / 1.46)),
-	//	(visibleSize.height / 2)));
-	//this->addChild(m_bgRight);
-
-	//auto actionMoveBym_bgRight = MoveBy::create(70.0, Vec2(-1500, 0));
-	//m_bgRight->runAction(actionMoveBym_bgRight);
+	if (!m_enemy)
+		return false;
 
 	// Set enemy physics
 	b2BodyDef enemyBodyDef;
@@ -32,9 +24,9 @@ bool Enemy::init(b2World* world, EnemyData* data)
 	enemyDynamicBox.SetAsBox(1.0f, 1.0f);
 
 	enemyBodyDef.type = b2_dynamicBody;
-	enemyBodyDef.position.Set(m_enemy->getPosition().x, 
+	enemyBodyDef.position.Set(m_enemy->getPosition().x,
 							  m_enemy->getPosition().y);
-	enemyBodyDef.userData = m_enemy;
+	//enemyBodyDef.userData = m_enemy;
 	m_enemyBody = m_world->CreateBody(&enemyBodyDef);
 
 	enemyFixtureDef.shape = &enemyDynamicBox;
@@ -42,6 +34,23 @@ bool Enemy::init(b2World* world, EnemyData* data)
 
 	m_hitOnHead = false;
 	m_scheduledForRemoval = false;
+
+	// Set default enemy actions
+	if (m_type == EnemyData::GROUND)
+	{
+		// Init movement
+		auto actionMoveByenemy = MoveBy::create(3.0, Vec2(-1500, 0));
+		m_enemy->runAction(actionMoveByenemy);
+	}
+	else if (m_type == EnemyData::FLYING)
+	{
+		// Init animation and movement
+		m_enemy->runAction(RepeatForever::create(data->getFlyingAnimation()));
+		auto actionMoveByEnemy = MoveBy::create(5.0, Vec2(-1500, 0));
+		m_enemy->runAction(actionMoveByEnemy);
+	}
+
+	this->addChild(m_enemy);
 
 	scheduleUpdate();
 
@@ -52,15 +61,20 @@ bool Enemy::init(b2World* world, EnemyData* data)
 void Enemy::update(float dt)
 {
 	// TODO add enemy colliders
-	if (m_type == EnemyData::EnemyType::FLYING 
-		&& m_hitOnHead)
+	if (m_type == EnemyData::FLYING && m_hitOnHead)
 	{
 		// Stop default flying animation
 		// and start falling animation
 		m_enemy->stopActionByTag(1);
 		m_enemy->runAction(this->getActionByTag(2));
 	}
-
+	else if (dt >= 3.0f && m_type == EnemyData::JUMPING)
+	{
+		// Init jumping and movement
+		b2Vec2 impulse(0, 8.0f);
+		b2Vec2 point = m_enemyBody->GetWorldCenter();
+		m_enemyBody->ApplyLinearImpulse(impulse, point, true);
+	}
 	//If(m_enemy.loc == ruudun ulkopuolella)
 	//{
 	//	  m_scheduledForRemoval = true;

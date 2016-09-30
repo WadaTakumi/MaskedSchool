@@ -68,7 +68,7 @@ struct EnemyData
 	Sprite* getGroundEnemy() { return m_ground; }
 	Sprite* getFlyingEnemy() { return m_flying; }
 	Sprite* getJumpingEnemy() { return m_jumping; }
-	Sprite* getRandomEnemy(int type)
+	Sprite* getEnemyByType(int type)
 	{
 		if (type == GROUND)
 			return m_ground;

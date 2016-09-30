@@ -54,9 +54,8 @@ bool Player::init(b2World* world)
 	b2PolygonShape playerDynamicBox;
 	playerDynamicBox.SetAsBox(64.0f / 2 / PTM_RATIO, 124.f / 2 / PTM_RATIO);
 
-	playerFixtureDef.density=0.5f;
-	playerBodyDef.gravityScale=1.5f;
-
+	playerBodyDef.gravityScale = 3.0f;
+	playerFixtureDef.friction = 0.0f;
 
 	playerBodyDef.type = b2_dynamicBody;
 	playerBodyDef.userData = m_pPlayer;
@@ -223,9 +222,16 @@ void Player::jump(bool flag)
 {
 	if (flag == true)
 	{
-		b2Vec2 impulse(0, 40.0f);
-		b2Vec2 point = m_pbPlayer->GetWorldCenter();
-		m_pbPlayer->ApplyLinearImpulse(impulse, point, true);
+		//b2Vec2 impulse(0, 10.5f);
+		//b2Vec2 point = m_pbPlayer->GetWorldCenter();
+		//m_pbPlayer->ApplyLinearImpulse(impulse, point, true);
+
+		b2Vec2 vel = m_pbPlayer->GetLinearVelocity();
+		float m = m_pbPlayer->GetMass();// the mass of the body
+		b2Vec2 desiredVel = b2Vec2(0, 20);// the vector speed you set
+		b2Vec2 velChange = desiredVel - vel;
+		b2Vec2 impluse = m * velChange; //impluse = mv
+		m_pbPlayer->ApplyLinearImpulse(impluse, m_pbPlayer->GetWorldCenter(),true);
 	}
 }
 

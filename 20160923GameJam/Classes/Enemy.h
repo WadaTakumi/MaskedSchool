@@ -10,7 +10,7 @@ class Enemy : public cocos2d::Layer
 {
 private:
 	cocos2d::Sprite* m_enemy;
-	int m_type;
+	EnemyData::EnemyType m_type;
 	//cocos2d::Sprite* m_bgRight;
 
 	// Physics
