@@ -100,7 +100,7 @@ bool MainScene::init()
 
 	m_pbaseMask = MaskOfBullet::create();
 	m_pbaseMask->m_mask= Sprite::create("mask1.png");
-	m_pbaseMask->GetPlayer(m_pPlayer);
+	//m_pbaseMask->GetPos(m_pPlayer->m_pPlayerSpr->getPosition());
 	this->addChild(m_pbaseMask);
 
 	scheduleUpdate();
@@ -126,6 +126,9 @@ void MainScene::update(float dt)
 	//---------------------------------------------------------------
 	// 物理ワールドの更新
 	m_pWorld->Step(1.0f / 60.0f, 8, 3);
+
+	///////////////////////////
+	m_pbaseMask->GetPos(m_pPlayer->m_pPlayerSpr->getPosition());
 
 	// 物理ワールド内全てのボディについて処理
 	for (b2Body* body = m_pWorld->GetBodyList();

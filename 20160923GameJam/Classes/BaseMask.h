@@ -18,7 +18,7 @@ class BaseMask : public cocos2d::Node
 private:
 public:
 
-	Player*m_Player;
+	cocos2d::Vec2 Player_pos;
 
 	//マスクの画像
 	cocos2d::Sprite* m_mask;
@@ -29,10 +29,10 @@ public:
 	//マスクの能力を使う
 	virtual void MaskAction() {};
 
+	void GetPos(cocos2d::Vec2 pos);
+
 
 	CREATE_FUNC(BaseMask)
-
-	void GetPlayer(Player*player);
 
 };
 #endif   

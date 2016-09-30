@@ -51,11 +51,11 @@ void MaskOfBullet::MaskAction()
 	CCLOG("aaaaaaaaaaaaaa");
 	
 	Sprite* bullet = Sprite::create();
-	bullet->setPosition(Vec2(300,400));
+	bullet->setPosition(Player_pos);
 	//bullet->setRotationY(90);
 	//bullet->setTag(BULLET);
 	this->addChild(bullet);
-	auto actionMoveBym_bgLeft = MoveTo::create(1,Vec2(1000, 300));
+	auto actionMoveBym_bgLeft = MoveBy::create(1,Vec2(1000, 0));
 	bullet->runAction(actionMoveBym_bgLeft);
 
 

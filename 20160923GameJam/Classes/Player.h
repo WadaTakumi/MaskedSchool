@@ -19,8 +19,6 @@ private:
 	b2Draw* m_pDraw;
 	b2Body* m_pbPlayer;
 	b2Vec2 m_p;
-
-	cocos2d::Sprite* m_pPlayer;
 	//cocos2d::Sprite* m_pIconOfNotGetMaskPower;
 	//MaskPower* m_pBullet;
 	//MainScene* m_main;
@@ -40,6 +38,7 @@ private:
 public:
 
 	BaseMask* m_Mask;
+	cocos2d::Sprite* m_pPlayerSpr;
 
 	//static cocos2d::Scene* createScene();
 	Player::Player();

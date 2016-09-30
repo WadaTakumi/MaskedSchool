@@ -43,11 +43,11 @@ bool Player::init(b2World* world)
 	
 	
 	// プレイヤー
-	m_pPlayer = Sprite::create();
-	m_pPlayer->setScale(0.2);
-	m_pPlayer->setTag(PLAYER);
-	m_pPlayer->setPosition(Vec2((840/2)-280,(960/2)-100));
-	this->addChild(m_pPlayer);
+	m_pPlayerSpr = Sprite::create();
+	m_pPlayerSpr->setScale(0.2);
+	m_pPlayerSpr->setTag(PLAYER);
+	m_pPlayerSpr->setPosition(Vec2((840/2)-280,(960/2)-100));
+	this->addChild(m_pPlayerSpr);
 	
 	b2BodyDef playerBodyDef;
 	b2FixtureDef playerFixtureDef;
@@ -58,7 +58,7 @@ bool Player::init(b2World* world)
 	playerFixtureDef.friction = 0.0f;
 
 	playerBodyDef.type = b2_dynamicBody;
-	playerBodyDef.userData = m_pPlayer;
+	playerBodyDef.userData = m_pPlayerSpr;
 	playerBodyDef.position.Set(((640 / 2) - 180) / PTM_RATIO, ( (960 / 2) - 100) / PTM_RATIO);
 	m_pbPlayer = m_pWorld->CreateBody(&playerBodyDef);
 	
@@ -108,7 +108,7 @@ bool Player::init(b2World* world)
 	auto anime = RepeatForever::create(action);
 
 	//アクションを実行する
-	m_pPlayer->runAction(anime);
+	m_pPlayerSpr->runAction(anime);
 
 
 
@@ -187,7 +187,7 @@ void Player::update(float dt)
 //void Player::jump(cocos2d::Ref * pSende)
 //{
 //	auto actionJumpBy = JumpBy::create(1.f, Vec2(0, 0), 100, 1);
-//	m_pPlayer->runAction(actionJumpBy);
+//	m_pPlayerSpr->runAction(actionJumpBy);
 //
 //	m_touchCount++;
 //	//m_jumpFlag = true;
@@ -214,7 +214,7 @@ void Player::update(float dt)
 //void Player::useMaskPower(cocos2d::Ref * pSende)
 //{
 //	m_pBullet = MaskPower::create();
-//	m_pBullet -> setPosition(m_pPlayer->getPosition());
+//	m_pBullet -> setPosition(m_pPlayerSpr->getPosition());
 //	this->addChild(m_pBullet);
 //}
 

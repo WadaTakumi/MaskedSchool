@@ -17,7 +17,6 @@
 class MaskOfBullet : public BaseMask
 {
 private:
-	Player*m_Player;
 
 public:
 	//‰Šú‰»
