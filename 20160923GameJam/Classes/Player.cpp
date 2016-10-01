@@ -242,6 +242,7 @@ void Player::ToShootBullet()
 	//}
 }
 
+
 Player * Player::create(b2World* world)
 {
 	Player* ret = new (std::nothrow) Player();

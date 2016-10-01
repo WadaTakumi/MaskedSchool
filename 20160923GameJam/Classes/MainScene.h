@@ -26,6 +26,11 @@ private:
 	b2Body* m_groundBody;
 	b2Body* m_bodyA;	// BOX2Dの当たり判定用
 	b2Body* m_bodyB;	// BOX2Dの当たり判定用
+
+	//マスク関連
+	b2Body* m_maskBody;
+
+
 	BackGround* m_pBackGround;
 	BackgroundLayer* m_pBackGroundLayer;
 	BackGround2* m_pBackGround2;
@@ -34,6 +39,9 @@ private:
 	Enemy* m_pEnemy;
 	EnemyData* m_enemyData;
 	BaseMask* m_pbaseMask;
+
+	Sprite* test1;
+	Sprite* test2;
 
 
 	int pPrintTimeCount;
@@ -60,6 +68,7 @@ public:
 
 	void BeginContact(b2Contact* contact);
 	void EndContact(b2Contact* contact);
+	void BackgroundMusic();
 
 	void SpawnMask();
 	void RemoveMask();

@@ -54,6 +54,7 @@ public:
 	void jump(bool flag);
 	void ToShootBullet();
 
+
 	static Player* create(b2World* world);
 };
 
