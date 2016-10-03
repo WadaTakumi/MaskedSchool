@@ -37,7 +37,8 @@ Scene* MainScene::createScene()
 	return scene;
 }
 
-MainScene::MainScene()
+MainScene::MainScene() :
+	m_enemies()
 {
 }
 
@@ -116,31 +117,33 @@ bool MainScene::init()
 
 
 	m_pBackGroundLayer = BackgroundLayer::create();
-	this->addChild(m_pBackGroundLayer,-10);
+	this->addChild(m_pBackGroundLayer, -10);
 
 
-	//Enemy initialisation
-	//m_enemyData = EnemyData::initEnemies();
+	// Enemy initialisation
+	//m_enemyData = EnemyData::init();
+	//this->addChild(m_enemyData);
+	this->schedule(schedule_selector(MainScene::SpawnEnemy), 2.0f);
+	//m_pEnemy = Enemy::create(m_pWorld, m_enemyData);
+	//this->addChild(m_pEnemy);
 
-	m_pEnemy = Enemy::create(m_pWorld, m_enemyData);
-	this->addChild(m_pEnemy);
 
 
 	m_gameStart = CutInOfStart::create();
 	m_gameStart->setCutInFlag(false);
-	this->addChild(m_gameStart,1);
+	this->addChild(m_gameStart, 1);
 
 
 	getMaskIcon = Sprite::create("mask1.png");
-	getMaskIcon->setPosition(Vec2(100,100));
+	getMaskIcon->setPosition(Vec2(100, 100));
 	getMaskIcon->setScale(1.2);
 	getMaskIcon->setVisible(false);
 	this->addChild(getMaskIcon);
-	
+
 
 
 	expgejiback = Sprite::create("MenuButtonDefault.png");
-	expgejiback->setPosition(Vec2(500,50));
+	expgejiback->setPosition(Vec2(500, 50));
 	this->addChild(expgejiback);
 	expgeji = Sprite::create("MenuButtonDefault.png");
 	expgeji->setPosition(Vec2(500, 50));
@@ -172,7 +175,7 @@ bool MainScene::init()
 }
 
 void MainScene::update(float dt)
-{	
+{
 	m_time++;
 
 	if (m_time == 60)
@@ -180,20 +183,20 @@ void MainScene::update(float dt)
 		m_timeCount++;
 		m_time = 0;
 	}
-	
+
 
 	//---------------------------------------------------------------
 	// 物理ワールドの更新
 	m_pWorld->Step(1.0f / 60.0f, 8, 3);
 
-	
+
 	///////////////////////////
-	if(m_pbaseMask != nullptr)
+	if (m_pbaseMask != nullptr)
 		m_pbaseMask->GetPos(m_pPlayer->m_pPlayerSpr->getPosition());
 
 	// 物理ワールド内全てのボディについて処理
 	for (b2Body* body = m_pWorld->GetBodyList();
-	body != nullptr;
+		body != nullptr;
 		body = body->GetNext())
 	{
 		// UserDataにしまっておいたSpriteを取得
@@ -217,8 +220,8 @@ void MainScene::update(float dt)
 	else
 	{
 		m_gameStart->setCutInFlag(false);
-	}	
-	
+	}
+
 	//---------------------------------------------------------------
 	// 数秒おきにマスクを出現させる
 	//if (m_timeCount == 2 /*&& m_maskBody != nullptr*/)
@@ -232,113 +235,126 @@ void MainScene::update(float dt)
 
 	//---------------------------------------------------------------
 	// マスクとプレイヤーの当たり判定
-	
+
 	Rect rect_player;
 	Rect rect_mask_bullet;
 	//Rect rect_mask_fly;
 
 	//if (maskOfBulletSprite != nullptr && m_pPlayer->m_pPlayerSpr != nullptr)
 	//{
-		rect_player = m_pPlayer->m_pPlayerSpr->getBoundingBox();
-		rect_mask_bullet = maskOfBulletSprite->getBoundingBox();
-//		rect_mask_fly = maskOfFlySprite->getBoundingBox();
+	rect_player = m_pPlayer->m_pPlayerSpr->getBoundingBox();
+	rect_mask_bullet = maskOfBulletSprite->getBoundingBox();
+	//		rect_mask_fly = maskOfFlySprite->getBoundingBox();
 
-		bool hit = rect_player.intersectsRect(rect_mask_bullet);
+	bool hit = rect_player.intersectsRect(rect_mask_bullet);
 	//	bool hit2 = rect_player.intersectsRect(rect_mask_fly);
 
-		if (hit)
-		{
-			m_getMaskflag = true;
-			m_getMaskOfBulletFlag = true;
-			m_getMaskOfFlyFlag = false;
-			exp_num = 100;	// 弾の数をセット
-			geji->setPercentage(exp_num);
-			log("hithit");
-		}
-		//if (hit2)
-		//{
-		//	m_getMaskflag = true;
-		//	m_getMaskOfBulletFlag = false;
-		//	m_getMaskOfFlyFlag = true;
-		//	log("hit2hit2");
-		//}
+	if (hit)
+	{
+		m_getMaskflag = true;
+		m_getMaskOfBulletFlag = true;
+		m_getMaskOfFlyFlag = false;
+		exp_num = 100;	// 弾の数をセット
+		geji->setPercentage(exp_num);
+		log("hithit");
+	}
+	//if (hit2)
+	//{
+	//	m_getMaskflag = true;
+	//	m_getMaskOfBulletFlag = false;
+	//	m_getMaskOfFlyFlag = true;
+	//	log("hit2hit2");
 	//}
-		//
+	//}
+	//
 	//if (m_pbaseMask != nullptr && m_pbaseMask->m_mask != nullptr)
 	//{
-		//
-		//rect_mask = m_pbaseMask->m_mask->getBoundingBox();
-		//if (rect_mask.intersectsRect(rect_player))[
-		//if(rect_mask.intersectsRect(rect_player))
-		//{
-		//	// マスクを消す
-		//	/*m_pbaseMask->removeFromParent();
-		//	m_pbaseMask = nullptr;*/
-		//	// フラグを立てる
-		//	m_getMaskflag = true;
-		//	CCLOG("HIT");
-		//}
+	//
+	//rect_mask = m_pbaseMask->m_mask->getBoundingBox();
+	//if (rect_mask.intersectsRect(rect_player))[
+	//if(rect_mask.intersectsRect(rect_player))
+	//{
+	//	// マスクを消す
+	//	/*m_pbaseMask->removeFromParent();
+	//	m_pbaseMask = nullptr;*/
+	//	// フラグを立てる
+	//	m_getMaskflag = true;
+	//	CCLOG("HIT");
 	//}
+	//}
+
+	// Update enemies
+
+	if (!m_enemies.empty())
+	{
+		for (int i = 0; i < m_enemies.size(); ++i)
+		{
+			Enemy* enemy = m_enemies.at(i);
+
+			if (enemy->m_enemy->getPosition().x < enemy->getContentSize().width / 2)
+				enemy->removeFromParent();
+		}
+	}
 
 
 	//---------------------------------------------------------------
 	// プレイヤーと敵の当たり判定
-		Rect rect_enemy;
-		rect_enemy= m_pEnemy->m_enemy->getBoundingBox();
+	Rect rect_enemy;
+	//rect_enemy= m_pEnemy->m_enemy->getBoundingBox();
 
-		bool hit2 = rect_player.intersectsRect(rect_enemy);
-		if (hit2)
+	bool hit2 = rect_player.intersectsRect(rect_enemy);
+	if (hit2)
+	{
+		if (m_getMaskOfBulletFlag != true)
 		{
-			if (m_getMaskOfBulletFlag != true)
-			{
-				//ゲームオーバー
-				menuMoveCallback();
-			}
-			if (m_getMaskOfBulletFlag == true)
-			{
-				m_getMaskOfBulletFlag == false;
-				getMaskIcon->setVisible(false);
-			}
+			//ゲームオーバー
+			menuMoveCallback();
 		}
+		if (m_getMaskOfBulletFlag == true)
+		{
+			m_getMaskOfBulletFlag == false;
+			getMaskIcon->setVisible(false);
+		}
+	}
 
 	//---------------------------------------------------------------
 	// マスクのポジションをセット
-		if (maskOfBulletSprite->getPositionX() <= -100)// ||
-			//maskOfFlySprite->getPositionX() <= -100)
-		{
-			maskOfBulletSprite->setPositionX(1100);
-//			maskOfFlySprite->setPositionX(1100);
-		}
+	if (maskOfBulletSprite->getPositionX() <= -100)// ||
+												   //maskOfFlySprite->getPositionX() <= -100)
+	{
+		maskOfBulletSprite->setPositionX(1100);
+		//			maskOfFlySprite->setPositionX(1100);
+	}
 
-	
+
 
 	//---------------------------------------------------------------
 	// マスクバレットのゲージ
-		// 現在の弾数を取得
-		exp_num = geji->getPercentage();
-		// ゲージに設定してく
-		geji->setPercentage(exp_num);
+	// 現在の弾数を取得
+	exp_num = geji->getPercentage();
+	// ゲージに設定してく
+	geji->setPercentage(exp_num);
 
 
 	//---------------------------------------------------------------
 	// マスクを取得したとき、アイコンを載せる
-		if (m_getMaskOfBulletFlag == true)
-		{
-//			// マスクが残っていればマスクアイコンを削除
-//			if (getMaskIcon)
-//			{
-//				getMaskIcon->removeFromParent();
-//			}
-			// マスクが残っていなければマスクアイコンを配置
-			//if (getMaskIcon == nullptr)
-			//{
-				getMaskIcon->setVisible(true);
-			//}
-		}
-		if (exp_num <= 0)
-		{
-			getMaskIcon->setVisible(false);
-		}
+	if (m_getMaskOfBulletFlag == true)
+	{
+		//			// マスクが残っていればマスクアイコンを削除
+		//			if (getMaskIcon)
+		//			{
+		//				getMaskIcon->removeFromParent();
+		//			}
+		// マスクが残っていなければマスクアイコンを配置
+		//if (getMaskIcon == nullptr)
+		//{
+		getMaskIcon->setVisible(true);
+		//}
+	}
+	if (exp_num <= 0)
+	{
+		getMaskIcon->setVisible(false);
+	}
 
 
 }
@@ -406,18 +422,18 @@ bool MainScene::onTouchBegan(cocos2d::Touch * touch,
 	// box座標系に変換--------------------------------------
 	m_position.x = touchPoint.x / PTM_RATIO;
 	m_position.y = touchPoint.y / PTM_RATIO;
-	
-	
+
+
 	// 画面の左側を押してジャンプする
 	if (m_position.x < (SCREEN_POSITION_X) / PTM_RATIO)
 	{
 		this->m_pPlayer->jump(m_notJampFlag);
 	}
-	
+
 
 	// マスクを取った後、画面の右側を押してマスクパワーを使う
-	if (m_position.x > (SCREEN_POSITION_X) / PTM_RATIO)
-	{	
+	if (m_position.x >(SCREEN_POSITION_X) / PTM_RATIO)
+	{
 
 
 		if (m_getMaskOfBulletFlag /*&& m_pbaseMask != nullptr*/
@@ -453,14 +469,14 @@ void MainScene::BeginContact(b2Contact* contact)
 
 	// 地面とプレイヤーの当たり判定
 	if (m_bodyA == m_groundBody)
-	{	
+	{
 		m_notJampFlag = true;
 	}
 	else if (m_bodyB == m_groundBody)
 	{
 		m_notJampFlag = true;
 	}
-	
+
 	if (m_bodyA == m_maskBody)
 	{
 		log("m_maskBody");
@@ -474,14 +490,14 @@ void MainScene::BeginContact(b2Contact* contact)
 	// マスクとプレイヤーの当たり判定
 	//Sprite* sprBodyA = (Sprite*)m_bodyA->GetUserData();
 	//Sprite* sprBodyB = (Sprite*)m_bodyB->GetUserData();
-	
+
 	//if ()
 	//{
 	//
 	//}
 	//else if (m_bodyB == m_pbaseMask)
 	//{
-		
+
 	//}
 
 	// プレイヤーと敵の当たり判定
@@ -509,7 +525,7 @@ void MainScene::EndContact(b2Contact * contact)
 void MainScene::BackgroundMusic()
 {
 	// true でループ可能
-	SimpleAudioEngine::sharedEngine()->playBackgroundMusic("sound||se_maoudamashii_system48.mp3",true);
+		SimpleAudioEngine::sharedEngine()->playBackgroundMusic("sound||se_maoudamashii_system48.mp3",true);
 }
 
 void MainScene::SpawnMask()
@@ -543,18 +559,18 @@ void MainScene::SpawnMask()
 	//m_maskBody->ApplyLinearImpulse(impulse, point, true);
 	//
 	//
-//	//switch (1)
-//	//{
-//	//case 0:
-//	//	m_pbaseMask->m_mask->runAction(goJump);
-//	//	break;
-//	//case 1:
-//	//	m_pbaseMask->m_mask->runAction(goJump2);
-//	//	break;
-//	//case 2:
-//	//	m_pbaseMask->m_mask->runAction(goJump3);
-//	//	break;
-//	//}
+	//	//switch (1)
+	//	//{
+	//	//case 0:
+	//	//	m_pbaseMask->m_mask->runAction(goJump);
+	//	//	break;
+	//	//case 1:
+	//	//	m_pbaseMask->m_mask->runAction(goJump2);
+	//	//	break;
+	//	//case 2:
+	//	//	m_pbaseMask->m_mask->runAction(goJump3);
+	//	//	break;
+	//	//}
 	//
 	//
 	//// 効果音を鳴らす=======================================================
@@ -562,7 +578,7 @@ void MainScene::SpawnMask()
 	//soundID = SimpleAudioEngine::sharedEngine()->playEffect("sound||se_maoudamashii_system48.mp3");
 	////=======================================================================
 
-//	m_maskSprites->MaskOfBulletSprite();
+	//	m_maskSprites->MaskOfBulletSprite();
 	ChoiceToMaskOfBulletSprite();
 
 }
@@ -576,6 +592,14 @@ void MainScene::RemoveMask()
 	//]:m_pbaseMask->removeFromParent();
 	//]:m_pbaseMask = nullptr;
 }
+
+void MainScene::SpawnEnemy(float delta)
+{
+	Enemy* enem = Enemy::create(m_pWorld);
+	m_enemies.pushBack(enem);
+	this->addChild(enem);
+}
+
 
 void MainScene::ChoiceToMaskOfBulletSprite()
 {
@@ -594,17 +618,17 @@ void MainScene::ChoiceToMaskOfBulletSprite()
 void MainScene::RoopToMaskMove(float dt)
 {
 	auto actionMoveTo = MoveTo::create(5.0f, Vec2(-100, 400));
-//	auto actionJumpBy = JumpBy::create(5,Vec2(-1500,50),0,50);
+	//	auto actionJumpBy = JumpBy::create(5,Vec2(-1500,50),0,50);
 
-//	srand((unsigned int)time(NULL));
-//	int actionRandNum = rand() % 3;
+	//	srand((unsigned int)time(NULL));
+	//	int actionRandNum = rand() % 3;
 
 
 	// Action
 	switch (0)
 	{
 	case 0:
-		maskOfBulletSprite-> runAction(actionMoveTo);
+		maskOfBulletSprite->runAction(actionMoveTo);
 		break;
 	case 1:
 		maskOfFlySprite->runAction(actionMoveTo);

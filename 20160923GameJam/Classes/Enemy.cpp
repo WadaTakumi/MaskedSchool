@@ -6,13 +6,62 @@ USING_NS_CC;
 
 const int PTM_RATIO = 32;
 
-bool Enemy::init(b2World* world, EnemyData* data)
+bool Enemy::init(b2World* world)
 {
 	m_world = world;
 
 	m_type = static_cast<EnemyData::EnemyType>(RandomHelper::random_int(0, 2));
 
-	m_enemy = data->getEnemyByType(m_type);
+	//m_enemy = data->getEnemyByType(m_type);
+
+	if (m_type == EnemyData::GROUND)
+	{
+		// Init GROUND type enemy
+		m_enemy = Sprite::create("PixelCar.png");
+		m_enemy->setScale(1.2f);
+		m_enemy->setPosition(Vec2((960 / 2) + 850, 220));
+	}
+
+	else if (m_type == EnemyData::FLYING)
+	{
+		// init BIRD type enemy
+		char str[100];
+		// Load chicken animation
+		SpriteFrameCache::getInstance()->addSpriteFramesWithFile("chicken/flying/flying.plist");
+		for (int i = 0; i < 3; ++i)
+		{
+			auto spriteCache = SpriteFrameCache::getInstance();
+			sprintf(str, "frame-%d.png", i);
+			m_birdFlyingFrames.pushBack(spriteCache->getSpriteFrameByName(str));
+		}
+		// Default BIRD type enemy animation
+		auto animation = Animation::createWithSpriteFrames(m_birdFlyingFrames, 0.07f);
+		m_flyingAnimation = Animate::create(animation);
+		m_flyingAnimation->setTag(1);
+
+		SpriteFrameCache::getInstance()->addSpriteFramesWithFile("chicken/flying/hit.plist");
+		for (int i = 0; i < 1; ++i)
+		{
+			auto spriteCache = SpriteFrameCache::getInstance();
+			sprintf(str, "frame-%d.png", i);
+			m_birdHitFrames.pushBack(spriteCache->getSpriteFrameByName(str));
+		}
+		// Activate this when a BIRD type enemy gets hit
+		animation = Animation::createWithSpriteFrames(m_birdHitFrames, 0.07f);
+		m_hitAnimation = Animate::create(animation);
+		m_hitAnimation->setTag(2);
+
+		m_enemy = Sprite::createWithSpriteFrame(m_birdFlyingFrames.front());
+		m_enemy->setScale(0.15f);
+		m_enemy->setPosition(Vec2((960 / 2) + 850, (640 / 2) + 50));
+	}
+	else if (m_type == EnemyData::JUMPING)
+	{
+		// Init JUMPING type enemy
+		m_enemy = Sprite::create("food.png");
+		m_enemy->setPosition(Vec2((960 / 2) + 850, 220));
+		m_enemy->setScale(0.225f);
+	}
 
 	if (!m_enemy)
 		return false;
@@ -41,13 +90,19 @@ bool Enemy::init(b2World* world, EnemyData* data)
 	if (m_type == EnemyData::GROUND)
 	{
 		// Init movement
-		auto actionMoveByenemy = MoveBy::create(3.0, Vec2(-1500, 0));
+		auto actionMoveByenemy = MoveBy::create(2, Vec2(-1500, 0));
+		m_enemy->runAction(actionMoveByenemy);
+	}
+	if (m_type == EnemyData::JUMPING)
+	{
+		// Init movement
+		auto actionMoveByenemy = MoveBy::create(3, Vec2(-1500, 0));
 		m_enemy->runAction(actionMoveByenemy);
 	}
 	else if (m_type == EnemyData::FLYING)
 	{
 		// Init animation and movement
-		m_enemy->runAction(RepeatForever::create(data->getFlyingAnimation()));
+		m_enemy->runAction(RepeatForever::create(m_flyingAnimation));
 		auto actionMoveByEnemy = MoveBy::create(5.0, Vec2(-1500, 0));
 		m_enemy->runAction(actionMoveByEnemy);
 	}
@@ -83,10 +138,10 @@ void Enemy::update(float dt)
 	//}
 }
 
-Enemy* Enemy::create(b2World* world, EnemyData* data)
+Enemy* Enemy::create(b2World* world)
 {
 	Enemy* enemy = new(std::nothrow) Enemy();
-	if (enemy && enemy->init(world, data))
+	if (enemy && enemy->init(world))
 	{
 		enemy->autorelease();
 		return enemy;

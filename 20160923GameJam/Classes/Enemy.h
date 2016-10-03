@@ -11,6 +11,10 @@ class Enemy : public cocos2d::Layer
 public:
 	cocos2d::Sprite* m_enemy;
 	EnemyData::EnemyType m_type;
+	Animate* m_flyingAnimation;
+	Animate* m_hitAnimation;
+	Vector<SpriteFrame*> m_birdFlyingFrames;
+	Vector<SpriteFrame*> m_birdHitFrames;
 	//cocos2d::Sprite* m_bgRight;
 
 	// Physics
@@ -22,10 +26,10 @@ public:
 
 	//static cocos2d::Scene* createScene();
 
-	virtual bool init(b2World* world, EnemyData* data);
+	virtual bool init(b2World* world);
 	void update(float dt)override;
 
-	static Enemy* create(b2World* world, EnemyData* data);
+	static Enemy* create(b2World* world);
 };
 
 #endif // __HELLOWORLD_SCENE_H__

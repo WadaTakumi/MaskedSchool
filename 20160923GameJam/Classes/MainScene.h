@@ -18,8 +18,9 @@ class Player;
 class Enemy;
 class EnemyData;
 
+static EnemyData* m_enemyData;
 
-class MainScene : public cocos2d::Layer,public b2ContactListener
+class MainScene : public cocos2d::Layer, public b2ContactListener
 {
 private:
 
@@ -30,7 +31,7 @@ private:
 	b2Body* m_bodyA;	// BOX2Dの当たり判定用
 	b2Body* m_bodyB;	// BOX2Dの当たり判定用
 
-	//マスク関連
+						//マスク関連
 	b2Body* m_maskBody;
 
 
@@ -39,12 +40,12 @@ private:
 	BackGround2* m_pBackGround2;
 	BackGround3* m_pBackGround3;
 	Player* m_pPlayer;
+	cocos2d::Vector<Enemy*> m_enemies;
 	Enemy* m_pEnemy;
 	EnemyData* m_enemyData;
 	BaseMask* m_pbaseMask;
 	CutInOfStart* m_gameStart;
 	MaskSprites* m_maskSprites;
-	//cocos2d::CCParticleSystemQuad* m_particleMaskIcon;
 
 	Sprite* test1;
 	Sprite* test2;
@@ -97,6 +98,7 @@ public:
 
 	void SpawnMask();
 	void RemoveMask();
+	void SpawnEnemy(float delta);
 
 	void ChoiceToMaskOfBulletSprite();
 
