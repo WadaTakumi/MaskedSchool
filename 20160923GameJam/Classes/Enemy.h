@@ -8,7 +8,7 @@
 
 class Enemy : public cocos2d::Layer
 {
-private:
+public:
 	cocos2d::Sprite* m_enemy;
 	EnemyData::EnemyType m_type;
 	//cocos2d::Sprite* m_bgRight;
@@ -19,8 +19,6 @@ private:
 
 	bool m_hitOnHead; // TODO rename?
 	bool m_scheduledForRemoval;
-
-public:
 
 	//static cocos2d::Scene* createScene();
 

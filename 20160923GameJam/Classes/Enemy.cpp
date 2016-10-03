@@ -23,11 +23,13 @@ bool Enemy::init(b2World* world, EnemyData* data)
 	b2PolygonShape enemyDynamicBox;
 	enemyDynamicBox.SetAsBox(1.0f, 1.0f);
 
+	enemyBodyDef.gravityScale = 3.0f;
+	enemyFixtureDef.friction = 0.0f;
 	enemyBodyDef.type = b2_dynamicBody;
 	enemyBodyDef.position.Set(m_enemy->getPosition().x,
 							  m_enemy->getPosition().y);
-	//enemyBodyDef.userData = m_enemy;
 	m_enemyBody = m_world->CreateBody(&enemyBodyDef);
+	//m_enemyBody->SetUserData(this); // TODO: fix invisible sprite
 
 	enemyFixtureDef.shape = &enemyDynamicBox;
 	m_enemyBody->CreateFixture(&enemyFixtureDef);
