@@ -92,8 +92,8 @@ bool BackgroundLayer::init()
 
 void BackgroundLayer::update(float dt)
 {
-	m_spd += 13.0f;
-	m_num = 13.0f;
+	m_spd += 15.0f;
+	m_num = 15.0f;
 
 	for (int i = 0; i < 5; i++)
 	{

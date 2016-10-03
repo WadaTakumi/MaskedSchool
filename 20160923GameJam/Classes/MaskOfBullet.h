@@ -19,6 +19,9 @@ class MaskOfBullet : public BaseMask
 private:
 
 public:
+
+	//cocos2d::Sprite* m_mask;
+
 	//‰Šú‰»
 	virtual bool init();
 

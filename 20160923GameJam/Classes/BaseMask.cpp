@@ -16,13 +16,13 @@
 */
 bool BaseMask::init()
 {
-	m_mask = nullptr;
-	Player_pos = cocos2d::Vec2(0, 0);
+	//m_mask = nullptr;
+	//Player_pos = cocos2d::Vec2(0, 0);
 	return true;
 }
 
 
 void BaseMask::GetPos(cocos2d::Vec2 pos)
 {
-	Player_pos = pos;
+//	Player_pos = pos;
 }

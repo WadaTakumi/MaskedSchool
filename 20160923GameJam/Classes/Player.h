@@ -34,6 +34,7 @@ private:
 	//bool m_jumpFlag;
 	//bool m_getMaskflag;
 	//bool m_putOutMaskPowerButtonFlag;
+	int m_jumpCount = 0;
 
 public:
 
@@ -52,7 +53,7 @@ public:
 	
 
 	void jump(bool flag);
-	void ToShootBullet();
+	void twoJump();
 
 
 	static Player* create(b2World* world);
