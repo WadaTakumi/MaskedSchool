@@ -22,6 +22,9 @@
     <ClCompile Include="..\Classes\QueryCallback.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="..\Classes\MaskOfScreenToSpeedUp.cpp" />
+    <ClCompile Include="..\Classes\CutInOfStart.cpp" />
+    <ClCompile Include="..\Classes\MaskSprites.cpp" />
+    <ClCompile Include="..\Classes\GameOverScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h" />
@@ -46,6 +49,10 @@
     <ClInclude Include="main.h" />
     <ClInclude Include="..\Classes\MaskOfScreenToSpeedUp.h" />
     <ClInclude Include="..\Classes\EnemyData.h" />
+    <ClInclude Include="..\Classes\Character.h" />
+    <ClInclude Include="..\Classes\CutInOfStart.h" />
+    <ClInclude Include="..\Classes\MaskSprites.h" />
+    <ClInclude Include="..\Classes\GameOverScene.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc" />

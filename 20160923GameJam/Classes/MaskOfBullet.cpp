@@ -21,9 +21,7 @@ USING_NS_CC;
 bool MaskOfBullet::init()
 {
 
-	m_mask = Sprite::create("mask1.png");
-	m_mask->setPosition(Vec2((960 / 2) + 350, (640 / 2) + 200));
-	this->addChild(m_mask);
+	m_mask = nullptr;
 
 
 	return true;
@@ -51,7 +49,7 @@ void MaskOfBullet::MaskAction()
 	CCLOG("aaaaaaaaaaaaaa");
 	
 	Sprite* bullet = Sprite::create();
-	bullet->setPosition(Player_pos);
+	bullet->setPosition(200,200);
 	//bullet->setRotationY(90);
 	//bullet->setTag(BULLET);
 	this->addChild(bullet);
