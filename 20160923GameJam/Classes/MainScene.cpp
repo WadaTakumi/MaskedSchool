@@ -120,7 +120,7 @@ bool MainScene::init()
 
 
 	//Enemy initialisation
-	m_enemyData = EnemyData::initEnemies();
+	//m_enemyData = EnemyData::initEnemies();
 
 	m_pEnemy = Enemy::create(m_pWorld, m_enemyData);
 	this->addChild(m_pEnemy);
@@ -284,7 +284,7 @@ void MainScene::update(float dt)
 	//---------------------------------------------------------------
 	// ƒvƒŒƒCƒ„[‚Æ“G‚Ì“–‚½‚è”»’è
 		Rect rect_enemy;
-		//rect_enemy= m_pEnemy->m_enemy->getBoundingBox();
+		rect_enemy= m_pEnemy->m_enemy->getBoundingBox();
 
 		bool hit2 = rect_player.intersectsRect(rect_enemy);
 		if (hit2)

@@ -44,6 +44,7 @@ private:
 	BaseMask* m_pbaseMask;
 	CutInOfStart* m_gameStart;
 	MaskSprites* m_maskSprites;
+	//cocos2d::CCParticleSystemQuad* m_particleMaskIcon;
 
 	Sprite* test1;
 	Sprite* test2;
