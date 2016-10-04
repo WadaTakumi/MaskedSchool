@@ -23,11 +23,15 @@ public:
 
 	bool m_hitOnHead; // TODO rename?
 	bool m_scheduledForRemoval;
+	bool StartSpawnEnemyFlag = true;
 
 	//static cocos2d::Scene* createScene();
 
 	virtual bool init(b2World* world);
 	void update(float dt)override;
+
+	void StartSpawnEnemy(float delta);
+	void SpawnEnemy(float delta);
 
 	static Enemy* create(b2World* world);
 };

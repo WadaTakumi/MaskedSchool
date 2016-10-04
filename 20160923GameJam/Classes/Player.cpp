@@ -228,7 +228,7 @@ void Player::jump(bool flag)
 
 		b2Vec2 vel = m_pbPlayer->GetLinearVelocity();
 		float m = m_pbPlayer->GetMass();// the mass of the body
-		b2Vec2 desiredVel = b2Vec2(0, 23);// the vector speed you set
+		b2Vec2 desiredVel = b2Vec2(0, 28);// the vector speed you set
 		b2Vec2 velChange = desiredVel - vel;
 		b2Vec2 impluse = m * velChange; //impluse = mv
 		m_pbPlayer->ApplyLinearImpulse(impluse, m_pbPlayer->GetWorldCenter(),true);

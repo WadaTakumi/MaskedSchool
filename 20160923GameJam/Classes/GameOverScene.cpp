@@ -3,6 +3,8 @@
 #include "ui/CocosGUI.h"
 #include "GLES-Render.h"
 //#include "GameOver.h"
+#include "cocos2d.h"
+
 
 USING_NS_CC;
 #define PTM_RATIO 32
@@ -112,15 +114,29 @@ bool GameOverScene::init()
 	//タッチを有効にする
 	this->setTouchEnabled(true);
 
+
 	//ボタンを作成
 	auto button = MenuItemImage::create(
-		"button.png", "button.png",
+		"button.png", "buttonPush.png",
 		CC_CALLBACK_1(GameOverScene::menuCloseCallback, this));
-	button->setPosition(500, 100);
+	button->setPosition((960/2)-150, 100);
 
 	auto menu = Menu::create(button, NULL);
 	menu->setPosition(Vec2::ZERO);
 	this->addChild(menu, 1);
+
+
+	//ボタンを作成
+	auto button2 = MenuItemImage::create(
+		"Quit.png", "QuitPush.png",
+		CC_CALLBACK_1(GameOverScene::menuCloseCallback2, this));
+	button2->setPosition((960 / 2) + 150, 100);
+
+	auto menu2 = Menu::create(button2, NULL);
+	menu2->setPosition(Vec2::ZERO);
+	this->addChild(menu2, 1);
+
+
 
 
 	// update関数を１フレームごとに呼び出す
@@ -151,6 +167,12 @@ void GameOverScene::menuCloseCallback(Ref* pSender)
 {
 
 	auto nextScene = GameOverScene::createScene();
-	Director::getInstance()->replaceScene(TransitionFade::create(1.0f, GameOverScene::createScene()));
+	Director::getInstance()->replaceScene(TransitionFade::create(1.0f, MainScene::createScene()));
 
+}
+
+void GameOverScene::menuCloseCallback2(Ref* pSender)
+{
+	auto nextScene = GameOverScene::createScene();
+	Director::getInstance()->replaceScene(TransitionFade::create(1.0f, MenuScreen::createScene()));
 }

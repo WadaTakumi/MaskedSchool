@@ -63,12 +63,17 @@ bool MainScene::init()
 
 	m_getMaskflag = false;
 	m_notJampFlag = false;
+	muteki = false;
+	m_particleGetMask = nullptr;
+	m_particleMuteki = nullptr;
+	m_particleHit = nullptr;
 	//m_canMaskPowerFlag = false;
 
 	//m_pbaseMask = nullptr;
 
 	m_time = 0;
 	m_timeCount = 0;
+	mutekitime = 0;
 
 	// リスナー ---------------------------------------------------
 	auto listener = EventListenerTouchOneByOne::create();
@@ -124,6 +129,7 @@ bool MainScene::init()
 	//m_enemyData = EnemyData::init();
 	//this->addChild(m_enemyData);
 	this->schedule(schedule_selector(MainScene::SpawnEnemy), 2.0f);
+	//SpawnEnemy();
 	//m_pEnemy = Enemy::create(m_pWorld, m_enemyData);
 	//this->addChild(m_pEnemy);
 
@@ -139,6 +145,12 @@ bool MainScene::init()
 	getMaskIcon->setScale(1.2);
 	getMaskIcon->setVisible(false);
 	this->addChild(getMaskIcon);
+
+
+	bullet = Sprite::create("food.png");
+	bullet->setPosition(Vec2(1000, 1000));
+	this->addChild(bullet);
+	
 
 
 
@@ -170,6 +182,8 @@ bool MainScene::init()
 	scheduleUpdate();
 	this->schedule(schedule_selector(MainScene::RoopToMaskMove), 10.0f);
 
+
+	
 
 	return true;
 }
@@ -216,6 +230,7 @@ void MainScene::update(float dt)
 	if (m_gameStart->getCutinFlag() == true)
 	{
 		m_gameStart->setCutInFlag(false);
+		StartFlag = true;
 	}
 	else
 	{
@@ -232,6 +247,7 @@ void MainScene::update(float dt)
 	//	log("m_timeCount_time %d", m_timeCount);
 	//	m_timeCount = 0;
 	//}
+
 
 	//---------------------------------------------------------------
 	// マスクとプレイヤーの当たり判定
@@ -257,6 +273,16 @@ void MainScene::update(float dt)
 		exp_num = 100;	// 弾の数をセット
 		geji->setPercentage(exp_num);
 		log("hithit");
+
+
+		m_particleGetMask = CCParticleSystemQuad::create("GetMask.plist");
+		m_particleGetMask->resetSystem();
+		m_particleGetMask->setScale(0.3);
+		m_particleGetMask->setVisible(true);
+		m_particleGetMask->setPosition(maskOfBulletSprite->getPosition());
+		this->addChild(m_particleGetMask);
+
+
 	}
 	//if (hit2)
 	//{
@@ -300,23 +326,84 @@ void MainScene::update(float dt)
 	//---------------------------------------------------------------
 	// プレイヤーと敵の当たり判定
 	Rect rect_enemy;
-	//rect_enemy= m_pEnemy->m_enemy->getBoundingBox();
+//	if (m_pEnemy == nullptr)
+//	{
 
-	bool hit2 = rect_player.intersectsRect(rect_enemy);
-	if (hit2)
-	{
-		if (m_getMaskOfBulletFlag != true)
+//	if (muteki == false)
+//	{
+		if (StartFlag != false)
 		{
-			//ゲームオーバー
-			menuMoveCallback();
-		}
-		if (m_getMaskOfBulletFlag == true)
-		{
-			m_getMaskOfBulletFlag == false;
-			getMaskIcon->setVisible(false);
-		}
-	}
+			rect_enemy = enem->m_enemy->getBoundingBox();
+			bool hit2 = rect_player.intersectsRect(rect_enemy);
 
+			if (hit2)
+			{
+				if (m_getMaskOfBulletFlag != true)
+				{
+					//ゲームオーバー
+					menuMoveCallback();
+				}
+				if (m_getMaskOfBulletFlag == true)
+				{
+					m_getMaskOfBulletFlag == false;
+					getMaskIcon->setVisible(false);
+				}
+			}
+		}
+//	}
+
+	//---------------------------------------------------------------
+	// マスクの弾と敵の当たり判定
+
+		Rect rect_bullet = bullet->getBoundingBox();
+		bool hit3 = rect_enemy.intersectsRect(rect_bullet);
+	//	bool flag=true;
+
+		if (StartFlag != false)
+		{
+			if (hit3)
+			{
+				muteki = true;
+				enem->setVisible(false);
+
+
+		//		if (flag)
+		//		{
+					m_particleHit = CCParticleSystemQuad::create("Hit.plist");
+					m_particleHit->resetSystem();
+					m_particleHit->setScale(0.5);
+					m_particleHit->setVisible(true);
+					m_particleHit->setPosition(enem->m_enemy->getPosition());
+					this->addChild(m_particleHit);
+		//			flag = false;
+		//		}
+			}
+		}
+
+
+		// 敵のスプライトを表示させる（元に戻す）
+
+		if (muteki == true)
+		{
+			mutekitime++;
+
+			if (mutekitime == 180)
+			{
+				muteki = false;
+				mutekitime = 0;
+				enem->setVisible(true);
+			//	flag = true;
+			}
+		}
+
+//		if (muteki =! nullptr)
+//		{
+//			if (muteki == false)
+//			{
+//				m_particleMuteki->removeFromParent();
+//			}
+//		}
+//
 	//---------------------------------------------------------------
 	// マスクのポジションをセット
 	if (maskOfBulletSprite->getPositionX() <= -100)// ||
@@ -356,6 +443,20 @@ void MainScene::update(float dt)
 		getMaskIcon->setVisible(false);
 	}
 
+
+
+
+
+
+
+
+
+
+	m_TimeLabel = cocos2d::Label::createWithSystemFont(cocos2d::StringUtils::toString(this->m_timeCount), "Arial", 50);
+	m_TimeLabel->enableGlow(cocos2d::Color4B::BLUE);
+	//m_TimeLabel->setPosition(this->getBoundingBox().getMidX(), this->getBoundingBox().getMaxY() - 100);
+	m_TimeLabel->setPosition(Vec2(500, 500));
+	m_TimeLabel->setColor(Color3B::GREEN);
 
 }
 
@@ -593,9 +694,10 @@ void MainScene::RemoveMask()
 	//]:m_pbaseMask = nullptr;
 }
 
-void MainScene::SpawnEnemy(float delta)
+//void MainScene::SpawnEnemy(float delta)
+void MainScene::SpawnEnemy(float dt)
 {
-	Enemy* enem = Enemy::create(m_pWorld);
+	enem = Enemy::create(m_pWorld);
 	m_enemies.pushBack(enem);
 	this->addChild(enem);
 }
@@ -647,7 +749,7 @@ void MainScene::MaskActionBullet()
 	//this->m_pPlayer->ToShootBullet();
 	CCLOG("aaaaaaaaaaaaaa");
 
-	Sprite* bullet = Sprite::create();
+	bullet = Sprite::create();
 	bullet->setPosition(m_pPlayer->m_pPlayerSpr->getPosition()/*.x/PTM_RATIO,getPosition().y/PTM_RATIO*/);
 	//bullet->setRotationY(90);
 	//bullet->setTag(BULLET);

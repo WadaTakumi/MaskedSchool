@@ -26,10 +26,10 @@ private:
 
 	b2World* m_pWorld;
 	b2Draw* m_pDraw;
-	b2Vec2 m_position;
 	b2Body* m_groundBody;
 	b2Body* m_bodyA;	// BOX2Dの当たり判定用
 	b2Body* m_bodyB;	// BOX2Dの当たり判定用
+	b2Vec2 m_position;
 
 						//マスク関連
 	b2Body* m_maskBody;
@@ -52,7 +52,7 @@ private:
 	Sprite* maskOfBulletSprite;
 	Sprite* maskOfFlySprite;
 	Sprite* getMaskIcon;
-
+	Sprite* bullet;
 
 	Sprite* expgejiback;
 	Sprite* expgeji;
@@ -60,6 +60,16 @@ private:
 
 	ProgressTimer* geji;
 	static int exp_num;
+
+
+	Enemy* enem;
+
+
+	cocos2d::CCParticleSystemQuad* m_particleGetMask;
+	cocos2d::CCParticleSystemQuad* m_particleHit;
+	cocos2d::CCParticleSystemQuad* m_particleMuteki;
+
+	cocos2d::Label* m_TimeLabel;
 
 
 
@@ -75,6 +85,13 @@ private:
 	bool m_getMaskOfBulletFlag = false;
 	bool m_getMaskOfFlyFlag = false;
 	bool m_shottoBulletFlag;
+
+
+	bool StartFlag = false;
+	bool muteki;
+	float mutekitime;
+
+
 
 public:
 
@@ -99,6 +116,7 @@ public:
 	void SpawnMask();
 	void RemoveMask();
 	void SpawnEnemy(float delta);
+	//void SpawnEnemy();
 
 	void ChoiceToMaskOfBulletSprite();
 

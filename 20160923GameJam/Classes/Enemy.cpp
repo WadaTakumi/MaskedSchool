@@ -18,7 +18,7 @@ bool Enemy::init(b2World* world)
 	{
 		// Init GROUND type enemy
 		m_enemy = Sprite::create("PixelCar.png");
-		m_enemy->setScale(1.2f);
+		m_enemy->setScale(0.9f);
 		m_enemy->setPosition(Vec2((960 / 2) + 850, 220));
 	}
 
@@ -34,10 +34,7 @@ bool Enemy::init(b2World* world)
 			sprintf(str, "frame-%d.png", i);
 			m_birdFlyingFrames.pushBack(spriteCache->getSpriteFrameByName(str));
 		}
-		// Default BIRD type enemy animation
-		auto animation = Animation::createWithSpriteFrames(m_birdFlyingFrames, 0.07f);
-		m_flyingAnimation = Animate::create(animation);
-		m_flyingAnimation->setTag(1);
+
 
 		SpriteFrameCache::getInstance()->addSpriteFramesWithFile("chicken/flying/hit.plist");
 		for (int i = 0; i < 1; ++i)
@@ -46,10 +43,7 @@ bool Enemy::init(b2World* world)
 			sprintf(str, "frame-%d.png", i);
 			m_birdHitFrames.pushBack(spriteCache->getSpriteFrameByName(str));
 		}
-		// Activate this when a BIRD type enemy gets hit
-		animation = Animation::createWithSpriteFrames(m_birdHitFrames, 0.07f);
-		m_hitAnimation = Animate::create(animation);
-		m_hitAnimation->setTag(2);
+
 
 		m_enemy = Sprite::createWithSpriteFrame(m_birdFlyingFrames.front());
 		m_enemy->setScale(0.15f);
@@ -60,7 +54,8 @@ bool Enemy::init(b2World* world)
 		// Init JUMPING type enemy
 		m_enemy = Sprite::create("food.png");
 		m_enemy->setPosition(Vec2((960 / 2) + 850, 220));
-		m_enemy->setScale(0.225f);
+		//m_enemy->setScale(0.225f);
+		m_enemy->setScale(0.125f);
 	}
 
 	if (!m_enemy)
@@ -86,31 +81,39 @@ bool Enemy::init(b2World* world)
 	m_hitOnHead = false;
 	m_scheduledForRemoval = false;
 
-	// Set default enemy actions
-	if (m_type == EnemyData::GROUND)
-	{
-		// Init movement
-		auto actionMoveByenemy = MoveBy::create(2, Vec2(-1500, 0));
-		m_enemy->runAction(actionMoveByenemy);
-	}
-	if (m_type == EnemyData::JUMPING)
-	{
-		// Init movement
-		auto actionMoveByenemy = MoveBy::create(3, Vec2(-1500, 0));
-		m_enemy->runAction(actionMoveByenemy);
-	}
-	else if (m_type == EnemyData::FLYING)
-	{
-		// Init animation and movement
-		m_enemy->runAction(RepeatForever::create(m_flyingAnimation));
-		auto actionMoveByEnemy = MoveBy::create(5.0, Vec2(-1500, 0));
-		m_enemy->runAction(actionMoveByEnemy);
-	}
+	//// Set default enemy actions
+	//if (m_type == EnemyData::GROUND)
+	//{
+	//	// Init movement
+	//	auto actionMoveByenemy = MoveBy::create(2, Vec2(-1500, 0));
+	//	m_enemy->runAction(actionMoveByenemy);
+	//}
+	//if (m_type == EnemyData::JUMPING)
+	//{
+	//	// Init movement
+	//	auto actionMoveByenemy = MoveBy::create(3, Vec2(-1500, 0));
+	//	m_enemy->runAction(actionMoveByenemy);
+	//}
+	//else if (m_type == EnemyData::FLYING)
+	//{
+	//	// Init animation and movement
+	//	m_enemy->runAction(RepeatForever::create(m_flyingAnimation));
+	//	auto actionMoveByEnemy = MoveBy::create(5.0, Vec2(-1500, 0));
+	//	m_enemy->runAction(actionMoveByEnemy);
+	//}
 
 	this->addChild(m_enemy);
 
 	scheduleUpdate();
 
+	//if (StartSpawnEnemyFlag != false)
+	//{
+		this->schedule(schedule_selector(Enemy::SpawnEnemy), 1.0f);
+	//}
+	//if (StartSpawnEnemyFlag != true)
+	//{
+	//	this->schedule(schedule_selector(Enemy::SpawnEnemy), 2.0f);
+	//}
 
 	return true;
 }
@@ -136,6 +139,50 @@ void Enemy::update(float dt)
 	//{
 	//	  m_scheduledForRemoval = true;
 	//}
+
+
+}
+
+void Enemy::StartSpawnEnemy(float delta)
+{
+	//if (StartSpawnEnemyFlag != false)
+	//{
+	//	this->schedule(schedule_selector(Enemy::SpawnEnemy), 2.0f);
+	//}
+	//StartSpawnEnemyFlag = false;
+}
+
+void Enemy::SpawnEnemy(float delta)
+{
+
+	// Set default enemy actions
+	if (m_type == EnemyData::GROUND)
+	{
+		// Init movement
+		auto actionMoveByenemy = MoveBy::create(2, Vec2(-1500, 0));
+		m_enemy->runAction(actionMoveByenemy);
+	}
+	if (m_type == EnemyData::JUMPING)
+	{
+		// Init movement
+		auto actionMoveByenemy = MoveBy::create(3, Vec2(-1500, 0));
+		m_enemy->runAction(actionMoveByenemy);
+	}
+	else if (m_type == EnemyData::FLYING)
+	{
+		// Default BIRD type enemy animation
+		auto animation = Animation::createWithSpriteFrames(m_birdFlyingFrames, 0.07f);
+		m_flyingAnimation = Animate::create(animation);
+		m_flyingAnimation->setTag(1);
+		// Activate this when a BIRD type enemy gets hit
+		animation = Animation::createWithSpriteFrames(m_birdHitFrames, 0.07f);
+		m_hitAnimation = Animate::create(animation);
+		m_hitAnimation->setTag(2);
+		// Init animation and movement
+		m_enemy->runAction(RepeatForever::create(m_flyingAnimation));
+		auto actionMoveByEnemy = MoveBy::create(5.0, Vec2(-1500, 0));
+		m_enemy->runAction(actionMoveByEnemy);
+	}
 }
 
 Enemy* Enemy::create(b2World* world)

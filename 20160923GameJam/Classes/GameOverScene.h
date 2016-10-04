@@ -3,6 +3,9 @@
 
 #include "cocos2d.h"
 #include "GLES-Render.h"
+#include "MainScene.h"
+#include "MenuScreenScene.h"
+//#include "cocos2d/cocos/ui/UIButton.h"
 
 class GameOverScene : public cocos2d::Layer
 {
@@ -19,7 +22,8 @@ public:
 
 	bool onTouchBegan(cocos2d::Touch * touch, cocos2d::Event *unused_event);
 
-	void menuCloseCallback(Ref * pSender);
+	void menuCloseCallback(cocos2d::Ref* pSender);
+	void menuCloseCallback2(cocos2d::Ref* pSender);
 
     // implement the "static create()" method manually
     CREATE_FUNC(GameOverScene);
